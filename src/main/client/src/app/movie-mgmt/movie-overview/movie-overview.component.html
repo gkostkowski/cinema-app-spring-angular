@@ -1,0 +1,22 @@
+<section class="container-fluid">
+  <table class="table table-striped books">
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Directing</th>
+      <th>Genre</th>
+      <th>Year</th>
+      <th>&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let movie of currentMovies">
+      <td>{{movie.title}}</td>
+      <td>{{movie.directing}}</td>
+      <td>{{movie.genre}}</td>
+      <td>{{movie.productionYear}}</td>
+      <td><a [routerLink]="['/app/movie', movie.id]">Details</a></td>
+    </tr>
+    </tbody>
+  </table>
+</section>

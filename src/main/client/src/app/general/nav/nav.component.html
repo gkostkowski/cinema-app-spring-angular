@@ -10,10 +10,8 @@
   </button>
   <a class="navbar-brand" href="#">
       <ng-template #oaspVersion><span class="version-template">Version: {{currentBuild.version}}, built at {{currentBuild.timestamp}}</span></ng-template>
-      <div class="d-flex flex-column" placement="right"
-           [ngbTooltip]="oaspVersion" >
-          <img src="assets/oasp-logo-72dpi.png" height="25">
-          <span class="oasp-version">Ver. {{currentBuild.version}}</span>
+      <div class="d-flex flex-column" placement="right">
+          <img src="assets/cinema.png" height="50">
       </div>
   </a>
   <div class="collapse navbar-collapse" id="navbarSupportedContent" [class.show]="!navCollapsed">
@@ -23,6 +21,9 @@
       </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/app/book">New Book</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/app/movies">Movies Overview</a>
       </li>
     </ul>
   </div>

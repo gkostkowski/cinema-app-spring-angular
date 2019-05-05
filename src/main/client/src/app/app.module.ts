@@ -1,14 +1,15 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {GeneralModule} from './general/general.module';
 import {RouterModule} from '@angular/router';
 import {APP_ROUTES} from './app.routing';
-import {BookService} from './book-mgmt/book.service';
-import {BookMgmtModule} from './book-mgmt/book-mgmt.module';
+import {MovieMgmtModule} from "./movie-mgmt/movie-mgmt.module";
+import {MovieOverviewComponent} from "./movie-mgmt/movie-overview/movie-overview.component";
+import {MovieService} from "./movie-mgmt/movie.service";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -17,12 +18,12 @@ import {BookMgmtModule} from './book-mgmt/book-mgmt.module';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(APP_ROUTES),
     GeneralModule,
-    BookMgmtModule
+    MovieMgmtModule
   ],
-  providers: [BookService],
+  providers: [MovieService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

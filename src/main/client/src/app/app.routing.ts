@@ -1,28 +1,28 @@
 import {Routes} from '@angular/router';
-import {BookOverviewComponent} from './book-mgmt/book-overview/book-overview.component';
-import {BookDetailsComponent} from './book-mgmt/book-details/book-details.component';
+import {MovieOverviewComponent} from "./movie-mgmt/movie-overview/movie-overview.component";
+import {MovieDetailsComponent} from "./movie-mgmt/movie-details/movie-details.component";
 
 export const APP_ROUTES: Routes = [
   {
     path: 'app',
     children: [
       {
-        path: 'books',
-        component: BookOverviewComponent
+        path: 'movies',
+        component: MovieOverviewComponent
       },
       {
-        path: 'book',
-        component: BookDetailsComponent
+        path: 'movie',
+        component: MovieDetailsComponent
       },
       {
-        path: 'book/:bookId',
-        component: BookDetailsComponent
+        path: 'movie/:movieId',
+        component: MovieDetailsComponent
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/app/books',
+    redirectTo: '/app/movies',
     pathMatch: 'full'
   }
 ];
