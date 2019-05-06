@@ -1,22 +1,13 @@
 <section class="container-fluid">
-  <table class="table table-striped books">
-    <thead>
-    <tr>
-      <th>Title</th>
-      <th>Directing</th>
-      <th>Genre</th>
-      <th>Year</th>
-      <th>&nbsp;</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let movie of currentMovies">
-      <td>{{movie.title}}</td>
-      <td>{{movie.directing}}</td>
-      <td>{{movie.genre}}</td>
-      <td>{{movie.productionYear}}</td>
-      <td><a [routerLink]="['/app/movie', movie.id]">Details</a></td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="list-group">
+    <a style="text-decoration: none" [routerLink]="['/app/movie', movie.id]"
+       class="list-group-item"
+       *ngFor="let movie of currentMovies">
+      <h5>{{movie.title}}</h5>
+      <p style="margin: 0; padding: 0;" class="font-weight-lighter" >{{movie
+        .directing}}</p>
+      <p style="margin: 0; padding: 0;">{{movie.genre}}</p>
+      <p style="margin: 0; padding: 0;">{{movie.productionYear}}</p>
+    </a>
+  </div>
 </section>

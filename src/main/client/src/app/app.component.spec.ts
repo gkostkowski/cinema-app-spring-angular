@@ -33,6 +33,6 @@ describe('AppComponent', () => {
 
     it('should render navigation bar', async(() => {
         const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('app-nav ul li a').textContent).toContain('Book Overview');
+        expect(compiled.querySelector('app-nav ul li a').textContent).toContain('Screenings');
     }));
 });
