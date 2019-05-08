@@ -33,6 +33,9 @@ export class MovieOverviewComponent implements OnInit {
               console.log(this.currentMovies[movieId].id);
             }
           );
+          this.movieService.findScreenings(this.currentMovies[movieId].id).subscribe(
+            screenings => this.movieService.setScreenings(this.currentMovies[movieId], screenings)
+          )
         }
       }
     )

@@ -16,11 +16,15 @@ export class MovieService {
   }
 
   findOne(movieId:number): Observable<Movie> {
-    return this.httpClient.get<Movie>('services/rest/movies/'+movieId);
+    return this.httpClient.get<Movie>(`services/rest/movies/${movieId}`);
+  }
+
+  findScreenings(movieId): Observable<Screening[]> {
+    return this.httpClient.get<Screening[]>(`services/rest/movie/${movieId}/screenings`);
   }
 
   getMovieImage(movieId: number):Observable<Blob> {
-    return this.httpClient.get('services/rest/movies/img/'+movieId,
+    return this.httpClient.get(`services/rest/movies/img/${movieId}`,
       {
         responseType: "blob"
       });
@@ -43,8 +47,31 @@ export class MovieService {
         resolve(base64data);
       };
     });
-    onloadImage.then((base64data) => movie.image = this.sanitizer.bypassSecurityTrustUrl(base64data))
 
+    onloadImage.then((base64data) => movie.image = this.sanitizer.bypassSecurityTrustUrl(base64data))
+  }
+
+  setScreenings(movie: Movie, screenings: Screening[]) {
+    movie.screenings = screenings
+    for (let i in screenings) {
+      let d = screenings[i].screeningDate
+      let mm = this.pad(d.monthOfYear, 2)
+      let dd = this.pad(d.dayOfMonth,2)
+      let hh = this.pad(d.hourOfDay, 2)
+      let MM = this.pad(d.minuteOfHour, 2)
+      let t: string = "";
+      if (hh != "00") {
+        t = ` ${hh}:${MM}`
+      }
+      screenings[i].screeningDate =
+        `${d.year}-${mm}-${dd}${t}`
+
+    }
+  }
+
+  private pad(num, size) {
+    var s = "0" + num;
+    return s.substr(s.length-size);
   }
 
 }
@@ -58,8 +85,17 @@ export class Movie {
   shortDescription: string;
   productionYear: number;
   image: any;
+  screenings: Screening[];
 }
 
+export class Screening {
+  id?: number;
+  screeningDate: any;
+  movie: any;
+  screeningRoom: any;
+  orderedTickets: any;
+
+}
 
 enum MovieGenre {
   COMEDY = "comedy",

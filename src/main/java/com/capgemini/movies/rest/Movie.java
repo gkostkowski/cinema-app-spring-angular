@@ -1,5 +1,7 @@
 package com.capgemini.movies.rest;
 
+import java.util.Objects;
+
 public class Movie {
     private String description;
     private Long id;
@@ -64,5 +66,24 @@ public class Movie {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return productionYear == movie.productionYear &&
+                Objects.equals(description, movie.description) &&
+                Objects.equals(id, movie.id) &&
+                Objects.equals(title, movie.title) &&
+                Objects.equals(directing, movie.directing) &&
+                genre == movie.genre;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(description, id, title, directing, productionYear, genre);
     }
 }
