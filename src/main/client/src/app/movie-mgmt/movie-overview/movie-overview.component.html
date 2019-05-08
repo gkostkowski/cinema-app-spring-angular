@@ -1,13 +1,49 @@
 <section class="container-fluid">
-  <div class="list-group">
-    <a style="text-decoration: none" [routerLink]="['/app/movie', movie.id]"
-       class="list-group-item"
+  <h2>Screenings</h2>
+  <div class="list-group" style="padding: 10%;">
+
+    <div style="text-decoration: none" class="list-group-item"
        *ngFor="let movie of currentMovies">
-      <h5>{{movie.title}}</h5>
-      <p style="margin: 0; padding: 0;" class="font-weight-lighter" >{{movie
-        .directing}}</p>
-      <p style="margin: 0; padding: 0;">{{movie.genre}}</p>
-      <p style="margin: 0; padding: 0;">{{movie.productionYear}}</p>
-    </a>
+      <div class="row">
+        <a [routerLink]="['/app/movie', movie.id]" data-toggle="tooltip"
+           title="Click to show movie details"class="col-md-12"><h3>{{movie
+          .title}}</h3>
+        </a>
+      </div>
+      <div class="row">
+        <div class="col-md-4"><img [src]="movie.image" style="width:100px"/>
+        </div>
+        <div class="col-md-8">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6"><p style="margin: 0; padding: 0;"
+                                       class="font-weight-lighter" >{{movie
+                .directing}}</p>
+              </div>
+              <div class="col-md-6"><p style="margin: 0; padding: 0;">{{movie.genre}}</p>
+                <p style="margin: 0; padding: 0;">{{movie.productionYear}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">{{movie.shortDescription}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        <p style="margin-left:15px">Available screenings</p>
+        <div class="col-md-12">
+          <button type="button" [routerLink]="['/app/screening', 1]"
+                  data-toggle="tooltip" title="Click to buy a ticket"
+                  class="btn btn-outline-info btn-sm">11.05.2019 17:00
+          </button>
+          <button type="button" class="btn btn-outline-info btn-sm"
+                  style="margin:10px">11.05.2019
+            19:15
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

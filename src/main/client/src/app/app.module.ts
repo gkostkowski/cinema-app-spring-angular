@@ -7,7 +7,6 @@ import {GeneralModule} from './general/general.module';
 import {RouterModule} from '@angular/router';
 import {APP_ROUTES} from './app.routing';
 import {MovieMgmtModule} from "./movie-mgmt/movie-mgmt.module";
-import {MovieOverviewComponent} from "./movie-mgmt/movie-overview/movie-overview.component";
 import {MovieService} from "./movie-mgmt/movie.service";
 import {HttpClientModule} from "@angular/common/http";
 
