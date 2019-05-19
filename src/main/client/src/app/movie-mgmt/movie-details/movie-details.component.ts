@@ -8,7 +8,7 @@ import {Movie, MovieService} from "../movie.service";
   styleUrls: ['./movie-details.component.scss']
 })
 export class MovieDetailsComponent implements OnInit {
-  private currentMovie: Movie;
+  public currentMovie: Movie;
 
   constructor(private movieService: MovieService, private route: ActivatedRoute, private router: Router) {
     this.currentMovie = new Movie();

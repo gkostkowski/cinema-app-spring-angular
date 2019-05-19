@@ -24,7 +24,7 @@ public class ScreeningRoom {
     }
 
 
-    public static List<Seat> makeScreeningRoomPlaces(int noOfRows,
+    private static List<Seat> makeScreeningRoomPlaces(int noOfRows,
                                                       int noOfColumns) {
         List<Seat> seats = new ArrayList<>(noOfColumns * noOfRows);
         for (int i = 0; i < noOfRows; i++) {

@@ -30,4 +30,10 @@ public class CinemaService {
         return new ConcurrentHashMap<Long, Screening>(screenings.stream()
                 .collect(Collectors.toMap(Screening::getId, Function.identity())));
     }
+
+    public Map<Long, Screening> getScreenings() {
+        List<Screening> screenings = dao.getScreenings();
+        return new ConcurrentHashMap<Long, Screening>(screenings.stream()
+                .collect(Collectors.toMap(Screening::getId, Function.identity())));
+    }
 }

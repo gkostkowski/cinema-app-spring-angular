@@ -65,6 +65,11 @@ public class DummyCinemaDao implements CinemaDao {
     }
 
     @Override
+    public List<Seat> getAllPlaces(Screening screening) {
+        return null;
+    }
+
+    @Override
     public List<Seat> getFreePlaces(Screening screening) {
         return null;
     }

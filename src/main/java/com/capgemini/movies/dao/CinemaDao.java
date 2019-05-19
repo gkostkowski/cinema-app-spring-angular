@@ -15,6 +15,8 @@ public interface CinemaDao {
 
     List<Screening> getScreeningsForMovie(Movie movie);
 
+    List<Seat> getAllPlaces(Screening screening);
+
     List<Seat> getFreePlaces(Screening screening);
 
     Seat getNextFreePlace(Screening screening);

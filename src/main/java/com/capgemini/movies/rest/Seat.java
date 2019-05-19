@@ -2,6 +2,7 @@ package com.capgemini.movies.rest;
 
 public class Seat {
     private String seatNumber;
+    private Boolean isFree = true;
 
     public Seat() {
     }
@@ -20,5 +21,13 @@ public class Seat {
 
     public String getSeatNumber() {
         return seatNumber;
+    }
+
+    public Boolean isFree() {
+        return this.isFree;
+    }
+
+    public void reservePlace() {
+        this.isFree = false;
     }
 }

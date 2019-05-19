@@ -23,6 +23,10 @@ export class MovieService {
     return this.httpClient.get<Screening[]>(`services/rest/movie/${movieId}/screenings`);
   }
 
+  findScreening(screeningId): Observable<Screening> {
+    return this.httpClient.get<Screening>(`services/rest/screenings/${screeningId}`);
+  }
+
   getMovieImage(movieId: number):Observable<Blob> {
     return this.httpClient.get(`services/rest/movies/img/${movieId}`,
       {
@@ -48,7 +52,7 @@ export class MovieService {
       };
     });
 
-    onloadImage.then((base64data) => movie.image = this.sanitizer.bypassSecurityTrustUrl(base64data))
+    onloadImage.then((base64data) => movie.image = this.sanitizer.bypassSecurityTrustUrl(""))
   }
 
   setScreenings(movie: Movie, screenings: Screening[]) {

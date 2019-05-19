@@ -60,6 +60,17 @@ public class CinemaRest {
                 .collect(Collectors.toList());
     }
 
+    @RequestMapping(value = "/screenings/{screeningId}", method = RequestMethod.GET)
+    public ResponseEntity<Screening> getScreening(@PathVariable("screeningId") long screeningId) {
+        final Map<Long, Screening> screeningsMap = service.getScreenings();
+        final Screening screening = screeningsMap.get(screeningId);
+        if (screening != null) {
+            return ResponseEntity.ok(screening);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @RequestMapping(value = "/movies/{id}", method = RequestMethod.GET)
     public ResponseEntity<Movie> getMovie(@PathVariable("id") long id) {
         final Movie found = service.getMoviesMap().get(id);
