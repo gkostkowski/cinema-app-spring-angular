@@ -23,7 +23,7 @@ export class MovieService {
     return this.httpClient.get<Screening[]>(`services/rest/movie/${movieId}/screenings`);
   }
 
-  findScreening(screeningId): Observable<Screening> {
+  findScreening(screeningId: number): Observable<Screening> {
     return this.httpClient.get<Screening>(`services/rest/screenings/${screeningId}`);
   }
 
@@ -32,6 +32,10 @@ export class MovieService {
       {
         responseType: "blob"
       });
+  }
+
+  saveTicket(screeningId: number, price: number): Observable<Ticket> {
+    return this.httpClient.post<Ticket>(`services/rest/screenings/ticket/${screeningId}`, price);
   }
 
   makeShortDescription(movie: Movie) {
@@ -58,18 +62,7 @@ export class MovieService {
   setScreenings(movie: Movie, screenings: Screening[]) {
     movie.screenings = screenings
     for (let i in screenings) {
-      let d = screenings[i].screeningDate
-      let mm = this.pad(d.monthOfYear, 2)
-      let dd = this.pad(d.dayOfMonth,2)
-      let hh = this.pad(d.hourOfDay, 2)
-      let MM = this.pad(d.minuteOfHour, 2)
-      let t: string = "";
-      if (hh != "00") {
-        t = ` ${hh}:${MM}`
-      }
-      screenings[i].screeningDate =
-        `${d.year}-${mm}-${dd}${t}`
-
+      this.convertDate(screenings[i])
     }
   }
 
@@ -78,6 +71,21 @@ export class MovieService {
     return s.substr(s.length-size);
   }
 
+  convertDate(screening: Screening) {
+    let date = screening.screeningDate
+      let mm = this.pad(date.monthOfYear, 2)
+      let dd = this.pad(date.dayOfMonth,2)
+      let hh = this.pad(date.hourOfDay, 2)
+      let MM = this.pad(date.minuteOfHour, 2)
+      let t: string = "";
+      if (hh != "00") {
+        t = ` ${hh}:${MM}`
+      }
+      screening.screeningDate =
+        `${date.year}-${mm}-${dd}${t}`
+
+      return screening
+  }
 }
 
 export class Movie {
@@ -95,10 +103,26 @@ export class Movie {
 export class Screening {
   id?: number;
   screeningDate: any;
-  movie: any;
-  screeningRoom: any;
+  movie: Movie;
+  screeningRoom: ScreeningRoom;
   orderedTickets: any;
+}
 
+export class Seat {
+  seatNumber: number;
+  free: boolean;
+}
+
+export class ScreeningRoom {
+  id?: number;
+  seats: Seat[];
+}
+
+export class Ticket {
+  ticketNumber: String;
+  screening: Screening;
+  seat: Seat;
+  price: number;
 }
 
 enum MovieGenre {

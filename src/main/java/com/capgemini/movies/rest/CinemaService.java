@@ -4,9 +4,11 @@ import com.capgemini.movies.dao.CinemaDao;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 @Service
 public class CinemaService {
     private CinemaDao dao;
+    private Collection<Ticket> orderedTickets = new ArrayList<>();
 
     public CinemaService(@Qualifier("DummyCinemaDao") CinemaDao dao) {
         this.dao = dao;
@@ -35,5 +38,9 @@ public class CinemaService {
         List<Screening> screenings = dao.getScreenings();
         return new ConcurrentHashMap<Long, Screening>(screenings.stream()
                 .collect(Collectors.toMap(Screening::getId, Function.identity())));
+    }
+
+    public void addTicket(Ticket ticket) {
+        orderedTickets.add(ticket);
     }
 }

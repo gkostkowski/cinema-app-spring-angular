@@ -1,18 +1,20 @@
 package com.capgemini.movies.rest;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.joda.time.LocalDateTime;
 
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Optional;
 
 public class Screening {
     private Long id;
     private LocalDateTime screeningDate;  // TODO change date format add hour minutes
     private Movie movie;
     private ScreeningRoom screeningRoom;
-    private Collection<Ticket> orderedTickets;
 
     public Screening() {
     }
@@ -22,7 +24,7 @@ public class Screening {
         this.screeningDate = screeningDate;
         this.movie = movie;
         this.screeningRoom = screeningRoom;
-        this.orderedTickets = new ArrayList<>();
+//        this.orderedTickets = new ArrayList<>();
     }
 
     public Long getId() {
@@ -41,9 +43,11 @@ public class Screening {
         return screeningRoom;
     }
 
-    public Collection<Ticket> getOrderedTickets() {
-        return orderedTickets;
+    public Optional<Seat> getFirstFreePlace() {
+        return screeningRoom.getFirstFreeSeat();
     }
 
-
+    public void setSeatAsTaken(Seat seat) {
+        screeningRoom.setSeatAsTaken(seat);
+    }
 }

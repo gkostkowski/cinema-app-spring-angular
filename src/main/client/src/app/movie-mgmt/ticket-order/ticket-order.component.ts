@@ -9,9 +9,24 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 })
 export class TicketOrderComponent implements OnInit {
   public currentScreening: Screening
+  public freePlacesCount: number
 
   constructor(private movieService: MovieService, private route: ActivatedRoute, private router: Router) {
     this.currentScreening = new Screening()
+   }
+
+   countFreeSeats() {
+     return this.currentScreening.screeningRoom.seats.filter(seat => seat.free).length
+   }
+
+   public buyTicket(price: number) {
+     console.log("trying to save ticket...")
+     this.movieService.saveTicket(this.currentScreening.id, price).subscribe( ticket => {
+       if (ticket) {
+         this.currentScreening = this.movieService.convertDate(ticket.screening);
+         this.freePlacesCount = this.countFreeSeats()
+       }
+     })
    }
 
   ngOnInit() {
@@ -21,7 +36,8 @@ export class TicketOrderComponent implements OnInit {
 
         this.movieService.findScreening(screeningId).subscribe( screening => {
           if (screening) {
-            this.currentScreening = screening;
+            this.currentScreening = this.movieService.convertDate(screening);
+            this.freePlacesCount = this.countFreeSeats()
           } else {
             this.router.navigate(['/app/movies']);
           }
@@ -29,5 +45,4 @@ export class TicketOrderComponent implements OnInit {
       }
     })
   }
-
 }

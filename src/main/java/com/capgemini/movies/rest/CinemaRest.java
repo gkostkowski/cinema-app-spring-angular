@@ -71,6 +71,23 @@ public class CinemaRest {
         }
     }
 
+    @RequestMapping(value = "/screenings/ticket/{screeningId}", method = RequestMethod.POST)
+    public ResponseEntity<Ticket> saveTicket(@PathVariable("screeningId") long screeningId,
+                                             @RequestBody double price) {
+        Map<Long, Screening> screeningsMap = service.getScreenings();
+        Screening screening = screeningsMap.get(screeningId);
+        if (screening != null) {
+            Optional<Seat> seat = screening.getFirstFreePlace();
+            if (seat.isPresent()) {
+                Ticket ticket = new Ticket(screening, seat.get(), price);
+                screening.setSeatAsTaken(seat.get());
+                service.addTicket(ticket);
+                return ResponseEntity.ok(ticket);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+
     @RequestMapping(value = "/movies/{id}", method = RequestMethod.GET)
     public ResponseEntity<Movie> getMovie(@PathVariable("id") long id) {
         final Movie found = service.getMoviesMap().get(id);
