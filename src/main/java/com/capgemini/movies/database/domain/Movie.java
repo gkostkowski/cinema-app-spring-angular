@@ -1,12 +1,12 @@
 package com.capgemini.movies.database.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 
 public class Movie extends Entity {
 
@@ -35,6 +35,17 @@ public class Movie extends Entity {
 
     @Relationship(type = "SHOWS", direction = Relationship.INCOMING)
     Set<Screening> screenings;
+
+
+    public Movie(Long id, String title, String directing, String description, int
+            productionYear, Set<Genre> genre) {
+        this.entityId = id;
+        this.title = title;
+        this.directing = directing;
+        this.description = description;
+        this.productionYear = productionYear;
+        this.genres = genre;
+    }
 
     @Override
     public String toString() {

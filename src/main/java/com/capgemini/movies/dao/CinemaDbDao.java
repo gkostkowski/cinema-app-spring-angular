@@ -1,7 +1,10 @@
 package com.capgemini.movies.dao;
 
-import com.capgemini.movies.database.domain.Genre;
-import com.capgemini.movies.domain.*;
+import com.capgemini.movies.adapter.MovieAdapter;
+import com.capgemini.movies.adapter.ScreeningAdapter;
+import com.capgemini.movies.adapter.ScreeningRoomAdapter;
+import com.capgemini.movies.adapter.TicketAdapter;
+import com.capgemini.movies.database.domain.*;
 import org.neo4j.ogm.cypher.ComparisonOperator;
 import org.neo4j.ogm.cypher.Filter;
 import org.neo4j.ogm.session.Session;
@@ -12,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Component(value = "CinemaDbDao")
+//@Component(value = "CinemaDbDao")
 public class CinemaDbDao implements CinemaDao {
 
     private final Session dbConn;
@@ -26,7 +29,7 @@ public class CinemaDbDao implements CinemaDao {
 
     @Override
     public List<Movie> getMovies() {
-        return new ArrayList<>(dbConn.loadAll(Movie.class));
+        return new ArrayList <>(dbConn.loadAll(Movie.class));
     }
 
     @Override
@@ -37,7 +40,8 @@ public class CinemaDbDao implements CinemaDao {
     @Override
     public Screening getScreeningById(Long id) {
         Filter filter = getEntityIdFilter(id);
-        Optional<Screening> result = dbConn.loadAll(Screening.class, filter)
+        Optional<Screening> result = dbConn
+                .loadAll(Screening.class, filter)
                 .stream()
                 .findFirst();
         return result.orElse(null);
@@ -53,12 +57,14 @@ public class CinemaDbDao implements CinemaDao {
     @Override
     public List<ScreeningRoom> getScreeningRooms() {
         return new ArrayList<>(dbConn.loadAll(ScreeningRoom.class));
+
     }
 
     @Override
     public Ticket getTicketById(long id) {
         Filter filter = getEntityIdFilter(id);
-        Optional<Ticket> result = dbConn.loadAll(Ticket.class, filter)
+        Optional<com.capgemini.movies.database.domain.Ticket> result =
+                dbConn.loadAll(Ticket.class, filter)
                 .stream()
                 .findFirst();
         return result.orElse(null);

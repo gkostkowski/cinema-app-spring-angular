@@ -1,7 +1,6 @@
 package com.capgemini.movies.rest;
 
-import com.capgemini.movies.domain.Movie;
-import com.capgemini.movies.domain.Screening;
+import com.capgemini.movies.database.domain.*;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -38,15 +37,16 @@ public class CinemaRest {
 
     public CinemaRest(CinemaService service) {
         this.service = service;
-        sequencer = service.getMoviesMap().values().stream()
-                .max(Comparator.comparingLong(Movie::getId))
-                .get().getId() + 1L;
+//        sequencer = service.getMoviesMap().values().stream()
+//                .max(Comparator.comparingLong(Movie::getEntityId))
+//                .get().getEntityId() + 1L;
+        sequencer = 1L;
     }
 
     @RequestMapping(value = "/movies", method = RequestMethod.GET)
     public List<Movie> getMovies() {
         return service.getMoviesMap().values().stream()
-                .sorted(Comparator.comparingLong(Movie::getId))
+                .sorted(Comparator.comparingLong(Movie::getEntityId))
                 .collect(Collectors.toList());
     }
 
@@ -54,7 +54,7 @@ public class CinemaRest {
     public List<Screening> getScreeningsForMovie(@PathVariable("id") long id) {
         Movie movie = service.getMoviesMap().get(id);
         return service.getScreeningsForMovieMap(movie).values().stream()
-                .sorted(Comparator.comparingLong(Screening::getId))
+                .sorted(Comparator.comparingLong(Screening::getEntityId))
                 .collect(Collectors.toList());
     }
 
@@ -80,7 +80,7 @@ public class CinemaRest {
 
     @RequestMapping(value = "/movies", method = RequestMethod.POST)
     public ResponseEntity<Movie> saveMovie(@RequestBody Movie movie) {
-        final long id = Optional.ofNullable(movie.getId()).orElseGet(this::getNextValue);
+        final long id = Optional.ofNullable(movie.getEntityId()).orElseGet(this::getNextValue);
         final Movie newMovie = new Movie(id, movie.getTitle(), movie.getDirecting(),
                 movie.getDescription(), movie.getProductionYear(), movie.getGenres());
         service.getMoviesMap().put(id, newMovie);

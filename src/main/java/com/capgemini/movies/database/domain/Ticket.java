@@ -6,6 +6,8 @@ import org.joda.time.LocalDateTime;
 import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.typeconversion.Convert;
 
+import java.util.Random;
+
 public class Ticket extends Entity {
 
     @JsonProperty("entityId")
@@ -49,6 +51,24 @@ public class Ticket extends Entity {
         this.entityId = this.getInternalId();
     }
 
+    public Ticket(Screening screening, Seat place, Double price) {
+        this.orderDate = LocalDateTime.now();
+        this.price = price;
+        this.screening = screening;
+        this.bookedPlace = place;
+        this.ticketNumber = TicketNumberGenerator.generateNextTicketNo();
+        this.entityId = this.getInternalId();
+    }
+
+    public Ticket(Screening screening, Seat place) {
+        this.orderDate = LocalDateTime.now();
+        this.price = PriceList.REGULAR.price;
+        this.screening = screening;
+        this.bookedPlace = place;
+        this.ticketNumber = TicketNumberGenerator.generateNextTicketNo();
+        this.entityId = this.getInternalId();
+    }
+
     public Seat getBookedPlace() {
         return bookedPlace;
     }
@@ -79,5 +99,41 @@ public class Ticket extends Entity {
                         " place:%s)",
                 entityId, ticketNumber, orderDate.toString(CustomDateConverter.dtFormatter),
                 price, screening, bookedPlace.seatNumber);
+    }
+}
+
+class TicketNumberGenerator {
+    private static int numberLength = 8;
+    private static Random rand = new Random();
+    private static char firstChar = 'A';
+    private static char lastChar = 'Z';
+
+    static String generateNextTicketNo() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < numberLength; i++) {
+            char nextChar = (char) (rand.nextInt((lastChar - firstChar) + 1) + firstChar);
+            sb.append(nextChar);
+        }
+        return sb.toString();
+    }
+}
+
+enum PriceList {
+    REGULAR(20),
+    STUDENT(18),
+    CHILD(12);
+
+    public final double price;
+
+    PriceList(double price) {
+        this.price = price;
+    }
+
+    PriceList() {
+        price = 0;
+    }
+
+    public double getPrice() {
+        return price;
     }
 }

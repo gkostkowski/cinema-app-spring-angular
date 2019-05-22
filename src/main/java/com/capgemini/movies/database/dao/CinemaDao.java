@@ -1,7 +1,6 @@
 package com.capgemini.movies.database.dao;
 
-import com.capgemini.movies.database.domain.Genre;
-import com.capgemini.movies.domain.*;
+import com.capgemini.movies.database.domain.*;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ public interface CinemaDao {
 
     List<Ticket> getAllTickets();
 
-    List<MovieGenre> getGenres();
+    List<Genre> getGenres();
 
     List<Seat> getSeats();
 

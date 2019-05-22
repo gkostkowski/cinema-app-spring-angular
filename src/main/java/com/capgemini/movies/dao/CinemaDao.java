@@ -1,7 +1,6 @@
 package com.capgemini.movies.dao;
 
-import com.capgemini.movies.database.domain.Genre;
-import com.capgemini.movies.domain.*;
+import com.capgemini.movies.database.domain.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
