@@ -38,6 +38,10 @@ export class MovieService {
     return this.httpClient.post<Ticket>(`services/rest/screenings/ticket/${screeningId}`, price);
   }
 
+  validateTicket(ticketId: String): Observable<Ticket> {
+    return this.httpClient.get<Ticket>(`services/rest/ticket/${ticketId}`)
+  }
+
   makeShortDescription(movie: Movie) {
     let end = 300;
     if (movie.description.length < end) {
@@ -109,7 +113,7 @@ export class Screening {
 }
 
 export class Seat {
-  seatNumber: number;
+  seatNumber: String;
   free: boolean;
 }
 

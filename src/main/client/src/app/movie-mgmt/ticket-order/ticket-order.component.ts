@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Screening, MovieService } from '../movie.service';
+import { Screening, MovieService, Ticket } from '../movie.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Component({
@@ -10,6 +10,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 export class TicketOrderComponent implements OnInit {
   public currentScreening: Screening
   public freePlacesCount: number
+  public currentTicket: Ticket
 
   constructor(private movieService: MovieService, private route: ActivatedRoute, private router: Router) {
     this.currentScreening = new Screening()
@@ -25,6 +26,7 @@ export class TicketOrderComponent implements OnInit {
        if (ticket) {
          this.currentScreening = this.movieService.convertDate(ticket.screening);
          this.freePlacesCount = this.countFreeSeats()
+         this.currentTicket = ticket
        }
      })
    }

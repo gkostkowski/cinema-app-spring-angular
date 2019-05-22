@@ -88,6 +88,16 @@ public class CinemaRest {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
+    @RequestMapping(value = "/ticket/{ticketId}", method = RequestMethod.GET)
+    public ResponseEntity<Ticket> validateTicket(@PathVariable("ticketId") String ticketId) {
+        Optional<Ticket> ticket = service.findTicket(ticketId);
+        if (ticket.isPresent()) {
+            return ResponseEntity.ok(ticket.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @RequestMapping(value = "/movies/{id}", method = RequestMethod.GET)
     public ResponseEntity<Movie> getMovie(@PathVariable("id") long id) {
         final Movie found = service.getMoviesMap().get(id);

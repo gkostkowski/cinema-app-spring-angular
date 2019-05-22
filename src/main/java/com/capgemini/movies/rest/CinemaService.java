@@ -4,10 +4,7 @@ import com.capgemini.movies.dao.CinemaDao;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -42,5 +39,9 @@ public class CinemaService {
 
     public void addTicket(Ticket ticket) {
         orderedTickets.add(ticket);
+    }
+
+    public Optional<Ticket> findTicket(String ticketId) {
+        return orderedTickets.stream().filter(ticket -> ticket.getTicketNumber().equals(ticketId)).findFirst();
     }
 }

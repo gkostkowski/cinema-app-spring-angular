@@ -1,0 +1,47 @@
+<section class="container-fluid" style="padding: 5%;">
+    <div class="container">
+            <h1>Validation</h1>
+            <form (submit)="onSubmit()">
+
+            <div class="form-group">
+                <label for="name">Ticket number</label>
+                <input type="text" class="form-control" id="ticket-number" required
+                [(ngModel)]="ticketNumber" [ngModelOptions]="{standalone: true}">
+            </div>
+        
+            <button type="submit" class="btn btn-success">Submit</button>
+        
+            </form>
+    </div>
+
+    &nbsp;
+
+    <div *ngIf="currentTicket">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">Ticket</div>
+                <div class="col-md-8">Valid</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">Movie</div>
+                <div class="col-md-8">{{currentTicket.screening.movie.title}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">Date</div>
+                <div class="col-md-8">{{currentTicket.screening.screeningDate}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">ScreeningRoom</div>
+                <div class="col-md-8">{{currentTicket.screening.screeningRoom.id}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">Seat</div>
+                <div class="col-md-8">{{currentTicket.seat.seatNumber}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">Price</div>
+                <div class="col-md-8">{{currentTicket.price}}</div>
+            </div>
+        </div>
+    </div>
+</section>
