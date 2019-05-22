@@ -1,4 +1,4 @@
-package com.capgemini.movies.rest;
+package com.capgemini.movies.domain;
 
 public class Seat {
     private String seatNumber;

@@ -1,13 +1,15 @@
 package com.capgemini.movies.dao;
 
-import com.capgemini.movies.rest.*;
+import com.capgemini.movies.domain.Movie;
+import com.capgemini.movies.domain.MovieGenre;
+import com.capgemini.movies.domain.Screening;
+import com.capgemini.movies.domain.ScreeningRoom;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,23 +66,4 @@ public class DummyCinemaDao implements CinemaDao {
         );
     }
 
-    @Override
-    public List<Seat> getFreePlaces(Screening screening) {
-        return null;
-    }
-
-    @Override
-    public Seat getNextFreePlace(Screening screening) {
-        return null;
-    }
-
-    @Override
-    public Ticket generateTicket(Screening screening, PriceList price) {
-        return null;
-    }
-
-    @Override
-    public boolean isTicketValid(Ticket verifiedTicket, Screening relatedScreening) {
-        return false;
-    }
 }

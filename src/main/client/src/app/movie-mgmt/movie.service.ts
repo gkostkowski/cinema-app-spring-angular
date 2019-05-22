@@ -48,7 +48,7 @@ export class MovieService {
       };
     });
 
-    onloadImage.then((base64data) => movie.image = this.sanitizer.bypassSecurityTrustUrl(base64data))
+    onloadImage.then((base64data:string) => movie.image = this.sanitizer.bypassSecurityTrustUrl(base64data))
   }
 
   setScreenings(movie: Movie, screenings: Screening[]) {
@@ -65,6 +65,7 @@ export class MovieService {
       }
       screenings[i].screeningDate =
         `${d.year}-${mm}-${dd}${t}`
+
 
     }
   }

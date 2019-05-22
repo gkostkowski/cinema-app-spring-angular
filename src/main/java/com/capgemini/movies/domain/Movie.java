@@ -1,6 +1,7 @@
-package com.capgemini.movies.rest;
+package com.capgemini.movies.domain;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class Movie {
     private String description;
@@ -8,16 +9,16 @@ public class Movie {
     private String title;
     private String directing;
     private int productionYear;
-    private MovieGenre genre;
+    private Set<MovieGenre> genres;
 
     public Movie(Long id, String title, String directing, String description, int
-                 productionYear, MovieGenre genre) {
+                 productionYear, Set<MovieGenre> genre) {
         this.id = id;
         this.title = title;
         this.directing = directing;
         this.description = description;
         this.productionYear = productionYear;
-        this.genre = genre;
+        this.genres = genre;
     }
 
     public Long getId() {
@@ -52,12 +53,8 @@ public class Movie {
         this.productionYear = productionYear;
     }
 
-    public MovieGenre getGenre() {
-        return genre;
-    }
-
-    public void setGenre(MovieGenre genre) {
-        this.genre = genre;
+    public Set<MovieGenre> getGenres() {
+        return genres;
     }
 
     public String getDescription() {
@@ -67,6 +64,7 @@ public class Movie {
     public void setDescription(String description) {
         this.description = description;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -78,12 +76,12 @@ public class Movie {
                 Objects.equals(id, movie.id) &&
                 Objects.equals(title, movie.title) &&
                 Objects.equals(directing, movie.directing) &&
-                genre == movie.genre;
+                genres == movie.genres;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(description, id, title, directing, productionYear, genre);
+        return Objects.hash(description, id, title, directing, productionYear, genres);
     }
 }

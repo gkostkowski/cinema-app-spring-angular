@@ -1,15 +1,14 @@
-package com.capgemini.movies.rest;
+package com.capgemini.movies.domain;
 
 import org.joda.time.LocalDateTime;
 
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 
 public class Screening {
     private Long id;
-    private LocalDateTime screeningDate;  // TODO change date format add hour minutes
+    private LocalDateTime screeningDate;
     private Movie movie;
     private ScreeningRoom screeningRoom;
     private Collection<Ticket> orderedTickets;

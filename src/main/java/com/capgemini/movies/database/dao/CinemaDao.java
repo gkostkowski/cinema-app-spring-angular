@@ -1,13 +1,12 @@
-package com.capgemini.movies.dao;
+package com.capgemini.movies.database.dao;
 
 import com.capgemini.movies.database.domain.Genre;
 import com.capgemini.movies.domain.*;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component(value = "CinemaDao")
 public interface CinemaDao {
+
     List<Movie> getMovies();
 
     List<Screening> getScreenings();
@@ -20,7 +19,7 @@ public interface CinemaDao {
 
     List<Ticket> getAllTickets();
 
-    List<Genre> getGenres();
+    List<MovieGenre> getGenres();
 
     List<Seat> getSeats();
 

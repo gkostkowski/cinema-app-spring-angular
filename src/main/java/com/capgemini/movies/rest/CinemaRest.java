@@ -1,5 +1,7 @@
 package com.capgemini.movies.rest;
 
+import com.capgemini.movies.domain.Movie;
+import com.capgemini.movies.domain.Screening;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,13 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @RestController
@@ -84,7 +82,7 @@ public class CinemaRest {
     public ResponseEntity<Movie> saveMovie(@RequestBody Movie movie) {
         final long id = Optional.ofNullable(movie.getId()).orElseGet(this::getNextValue);
         final Movie newMovie = new Movie(id, movie.getTitle(), movie.getDirecting(),
-                movie.getDescription(), movie.getProductionYear(), movie.getGenre());
+                movie.getDescription(), movie.getProductionYear(), movie.getGenres());
         service.getMoviesMap().put(id, newMovie);
         return ResponseEntity.ok(newMovie);
     }

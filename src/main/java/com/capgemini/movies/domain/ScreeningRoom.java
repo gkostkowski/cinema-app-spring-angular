@@ -1,4 +1,4 @@
-package com.capgemini.movies.rest;
+package com.capgemini.movies.domain;
 
 import java.util.ArrayList;
 import java.util.List;
