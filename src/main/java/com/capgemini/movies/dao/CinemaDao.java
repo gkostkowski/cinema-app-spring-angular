@@ -1,27 +1,35 @@
 package com.capgemini.movies.dao;
 
-import com.capgemini.movies.rest.*;
-import org.springframework.context.annotation.Bean;
+import com.capgemini.movies.database.domain.*;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
 import java.util.List;
 
 @Component(value = "CinemaDao")
 public interface CinemaDao {
-    List<Movie> getMovies();
+    List<com.capgemini.movies.database.domain.Movie> getMovies();
 
-    List<Screening> getScreenings();
+    Movie getMovieByTitle(String title);
 
-    List<Screening> getScreeningsForMovie(Movie movie);
+    List<com.capgemini.movies.database.domain.Screening> getScreenings();
 
-    List<Seat> getAllPlaces(Screening screening);
+    List<com.capgemini.movies.database.domain.Screening> getScreeningsForMovie(com.capgemini.movies.database.domain.Movie movie);
 
-    List<Seat> getFreePlaces(Screening screening);
+    List<Screening> getScreeningsForMovieTitle(String title);
 
-    Seat getNextFreePlace(Screening screening);
+    List<com.capgemini.movies.database.domain.ScreeningRoom> getScreeningRooms();
 
-    Ticket generateTicket(Screening screening, PriceList price);
+    com.capgemini.movies.database.domain.Ticket getTicketById(long id);
 
-    boolean isTicketValid(Ticket verifiedTicket, Screening relatedScreening);
+    List<com.capgemini.movies.database.domain.Ticket> getAllTickets();
+
+    List<com.capgemini.movies.database.domain.Genre> getGenres();
+
+    List<com.capgemini.movies.database.domain.Seat> getSeats();
+
+    List<Seat> getAvailablePlacesForScreening(com.capgemini.movies.database.domain.Screening screening);
+
+    void addTicket(com.capgemini.movies.database.domain.Ticket ticket);
+
+    com.capgemini.movies.database.domain.Screening getScreeningById(Long id);
 }

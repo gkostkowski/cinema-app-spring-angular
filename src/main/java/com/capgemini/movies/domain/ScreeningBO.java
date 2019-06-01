@@ -1,4 +1,4 @@
-package com.capgemini.movies.rest;
+package com.capgemini.movies.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -10,21 +10,22 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
 
-public class Screening {
+public class ScreeningBO {
     private Long id;
-    private LocalDateTime screeningDate;  // TODO change date format add hour minutes
-    private Movie movie;
-    private ScreeningRoom screeningRoom;
+    private LocalDateTime screeningDate;
+    private MovieBO movie;
+    private ScreeningRoomBO screeningRoom;
+    private Collection<TicketBO> orderedTickets;
 
-    public Screening() {
+    public ScreeningBO() {
     }
 
-    public Screening(Long id, LocalDateTime screeningDate, Movie movie, ScreeningRoom screeningRoom) {
+    public ScreeningBO(Long id, LocalDateTime screeningDate, MovieBO movie, ScreeningRoomBO screeningRoom) {
         this.id = id;
         this.screeningDate = screeningDate;
         this.movie = movie;
         this.screeningRoom = screeningRoom;
-//        this.orderedTickets = new ArrayList<>();
+        this.orderedTickets = new ArrayList<>();
     }
 
     public Long getId() {
@@ -35,12 +36,16 @@ public class Screening {
         return screeningDate;
     }
 
-    public Movie getMovie() {
+    public MovieBO getMovie() {
         return movie;
     }
 
-    public ScreeningRoom getScreeningRoom() {
+    public ScreeningRoomBO getScreeningRoom() {
         return screeningRoom;
+    }
+
+    public Collection<TicketBO> getOrderedTickets() {
+        return orderedTickets;
     }
 
     public Optional<Seat> getFirstFreePlace() {

@@ -1,5 +1,6 @@
 package com.capgemini.movies.rest;
 
+import com.capgemini.movies.database.domain.*;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,20 +13,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/services/rest")
 public class CinemaRest {
 
-//    private final Map<Long, Movie> movies;
+//    private final Map<Long, MovieTest> movies;
 
     private final Object seqLock = new Object();
     private final CinemaService service;
@@ -40,24 +37,26 @@ public class CinemaRest {
 
     public CinemaRest(CinemaService service) {
         this.service = service;
-        sequencer = service.getMoviesMap().values().stream()
-                .max(Comparator.comparingLong(Movie::getId))
-                .get().getId() + 1L;
+//        sequencer = service.getMoviesMap().values().stream()
+//                .max(Comparator.comparingLong(MovieTest::getEntityId))
+//                .get().getEntityId() + 1L;
+        sequencer = 1L;
     }
 
     @RequestMapping(value = "/movies", method = RequestMethod.GET)
     public List<Movie> getMovies() {
         return service.getMoviesMap().values().stream()
-                .sorted(Comparator.comparingLong(Movie::getId))
+                .sorted(Comparator.comparingLong(Movie::getEntityId))
                 .collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/movie/{id}/screenings", method = RequestMethod.GET)
     public List<Screening> getScreeningsForMovie(@PathVariable("id") long id) {
         Movie movie = service.getMoviesMap().get(id);
-        return service.getScreeningsForMovieMap(movie).values().stream()
-                .sorted(Comparator.comparingLong(Screening::getId))
+        List<Screening> res = service.getScreeningsForMovieTitleMap(movie.getTitle()).values().stream()
+                .sorted(Comparator.comparingLong(Screening::getEntityId))
                 .collect(Collectors.toList());
+        return res;
     }
 
     @RequestMapping(value = "/screenings/{screeningId}", method = RequestMethod.GET)
@@ -120,9 +119,9 @@ public class CinemaRest {
 
     @RequestMapping(value = "/movies", method = RequestMethod.POST)
     public ResponseEntity<Movie> saveMovie(@RequestBody Movie movie) {
-        final long id = Optional.ofNullable(movie.getId()).orElseGet(this::getNextValue);
+        final long id = Optional.ofNullable(movie.getEntityId()).orElseGet(this::getNextValue);
         final Movie newMovie = new Movie(id, movie.getTitle(), movie.getDirecting(),
-                movie.getDescription(), movie.getProductionYear(), movie.getGenre());
+                movie.getDescription(), movie.getProductionYear(), movie.getGenres());
         service.getMoviesMap().put(id, newMovie);
         return ResponseEntity.ok(newMovie);
     }
@@ -131,13 +130,10 @@ public class CinemaRest {
             produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> getMovieImage(@PathVariable("id") long id) throws IOException {
 
-        ClassPathResource imgFile = new ClassPathResource(
-                String.format("image/movies/%d.jpg", id));
-        byte[] bytes = StreamUtils.copyToByteArray(imgFile.getInputStream());
-
+        byte[] imgBytes = service.getImageByMovieId(id);
         return ResponseEntity
                 .ok()
                 .contentType(MediaType.IMAGE_JPEG)
-                .body(bytes);
+                .body(imgBytes);
     }
 }

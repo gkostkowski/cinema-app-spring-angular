@@ -5,8 +5,8 @@
     <div style="text-decoration: none" class="list-group-item"
        *ngFor="let movie of currentMovies">
       <div class="row">
-        <a [routerLink]="['/app/movie', movie.id]" data-toggle="tooltip"
-           title="Click to show movie details"class="col-md-12"><h3>{{movie
+        <a [routerLink]="['/app/movie', movie.entityId]" data-toggle="tooltip"
+           title="Click to show movie details" class="col-md-12"><h3>{{movie
           .title}}</h3>
         </a>
       </div>
@@ -20,7 +20,7 @@
                                        class="font-weight-lighter" >{{movie
                 .directing}}</p>
               </div>
-              <div class="col-md-6"><p style="margin: 0; padding: 0;">{{movie.genre}}</p>
+              <div class="col-md-6"><p style="margin: 0; padding: 0;">{{movie.genresStr}}</p>
                 <p style="margin: 0; padding: 0;">{{movie.productionYear}}</p>
               </div>
             </div>
@@ -34,7 +34,7 @@
       <div class="row">
         <p style="margin-left:15px">Available screenings</p>
         <div class="col-md-2 d-inline" *ngFor="let screening of movie.screenings">
-          <button type="button" [routerLink]="['/app/screening', screening.id]"
+          <button type="button" [routerLink]="['/app/screening', screening.entityId]"
                   data-toggle="tooltip" title="Click to buy a ticket"
                   class="btn btn-outline-info btn-sm d-inline" >{{screening.screeningDate}}
           </button>

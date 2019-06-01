@@ -50,6 +50,12 @@ export class MovieService {
     movie.shortDescription = movie.description.substring(0,end) + "..."
   }
 
+  makeGenresStr(movie: Movie) {
+    console.log(movie.genres)
+    movie.genresStr = movie.genres.filter(g => (g.hasOwnProperty("name")))
+        .map( g => (g.name)).join()
+  }
+
   setImageForMovie(movie: Movie, image: Blob) {
     var reader = new FileReader();
     reader.readAsDataURL(image);
@@ -60,7 +66,7 @@ export class MovieService {
       };
     });
 
-    onloadImage.then((base64data) => movie.image = this.sanitizer.bypassSecurityTrustUrl(""))
+    onloadImage.then((base64data:string) => movie.image = this.sanitizer.bypassSecurityTrustUrl(base64data))
   }
 
   setScreenings(movie: Movie, screenings: Screening[]) {
@@ -88,14 +94,14 @@ export class MovieService {
       screening.screeningDate =
         `${date.year}-${mm}-${dd}${t}`
 
-      return screening
-  }
+
 }
 
 export class Movie {
-  id?: number;
+  entityId?: number;
   title: string;
-  genre: MovieGenre;
+  genres: Genre[];
+  genresStr: string;
   directing: string;
   description: string;
   shortDescription: string;
@@ -105,7 +111,7 @@ export class Movie {
 }
 
 export class Screening {
-  id?: number;
+  entityId?: number;
   screeningDate: any;
   movie: Movie;
   screeningRoom: ScreeningRoom;
@@ -129,10 +135,8 @@ export class Ticket {
   price: number;
 }
 
-enum MovieGenre {
-  COMEDY = "comedy",
-  DRAMA = "drama",
-  THRILLER = "thriller",
-  SCI_FI = "science-fiction",
-  OTHER = "other"
+class Genre {
+  id?: number;
+  name: string;
+  version:any;
 }

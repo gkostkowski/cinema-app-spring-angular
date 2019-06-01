@@ -35,12 +35,12 @@ export class MovieDetailsComponent implements OnInit {
         // ).subscribe(
         //   movie => {
         //
-        //       this.movieService.getMovieImage(this.currentMovie.id).subscribe(
+        //       this.movieService.getMovieImage(this.currentMovie.entityId).subscribe(
         //         // image => {console.log(image);this.currentMovies[movieId].image = image; }
         //         image => {
         //           this.movieService.setImageForMovie(this.currentMovie, image);
         //           console.log("From nested sub");
-        //           console.log(this.currentMovie.id);
+        //           console.log(this.currentMovie.entityId);
         //         }
         //       );
         //
