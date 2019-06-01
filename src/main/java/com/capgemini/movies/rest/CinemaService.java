@@ -5,8 +5,11 @@ import com.capgemini.movies.database.domain.*;
 import com.capgemini.movies.rest.exception.ReservationAfterScreeningException;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StreamUtils;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -17,12 +20,13 @@ import java.util.stream.Collectors;
 @Service
 public class CinemaService {
     private CinemaDao dao;
+    private final String imgPathFormatter = "image/movies/%d.jpg";
 
-//    public CinemaService(@Qualifier("DummyCinemaDao") CinemaDao dao) {
-//    public CinemaService(@Qualifier("CinemaDbDao") CinemaDao dao) {
-    public CinemaService() {
-        this.dao = null;
+    public CinemaService(@Qualifier("CinemaRepositoryDao") CinemaDao dao) {
+        this.dao = dao;
     }
+//    public CinemaService(@Qualifier("CinemaDbDao") CinemaDao dao) {
+
 
     public Map<Long, Movie> getMoviesMap() {
         List<Movie> movies = dao.getMovies();
@@ -32,6 +36,12 @@ public class CinemaService {
 
     public Map<Long, Screening> getScreeningsForMovieMap(Movie movie) {
         List<Screening> screenings = dao.getScreeningsForMovie(movie);
+        return new ConcurrentHashMap<Long, Screening>(screenings.stream()
+                .collect(Collectors.toMap(Screening::getEntityId, Function.identity())));
+    }
+
+    public Map<Long, Screening> getScreeningsForMovieTitleMap(String title) {
+        List<Screening> screenings = dao.getScreeningsForMovieTitle(title);
         return new ConcurrentHashMap<Long, Screening>(screenings.stream()
                 .collect(Collectors.toMap(Screening::getEntityId, Function.identity())));
     }
@@ -94,5 +104,10 @@ public class CinemaService {
                             && t.getTicketNumber().equals(verificationCode));
         }
         return false;
+    }
+
+    public byte[] getImageByMovieId(long id) throws IOException {
+        ClassPathResource imgResource = new ClassPathResource(String.format(imgPathFormatter, id));
+        return StreamUtils.copyToByteArray(imgResource.getInputStream());
     }
 }

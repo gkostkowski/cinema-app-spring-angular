@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.voodoodyne.jackson.jsog.JSOGGenerator;
 import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Version;
+//import org.neo4j.ogm.annotation.Version;
 
 @JsonIdentityInfo(generator = JSOGGenerator.class)
 @NodeEntity
 public abstract class Entity {
 
-    @JsonProperty("id")
+    @JsonProperty("entityId")
     private Long id;
 
     @JsonProperty
-    @Version
+//    @Version
     Long version;
 
     protected Long getInternalId() {

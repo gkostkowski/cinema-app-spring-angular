@@ -6,16 +6,16 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.util.Random;
 
-public class Ticket {
+public class TicketBO {
     public static final DateTimeFormatter dtFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
 
     private String ticketNumber;
-    private Screening screening;
-    private Seat seat;
+    private ScreeningBO screening;
+    private SeatBO seat;
     private double price;
     private LocalDateTime orderDate;
 
-    public Ticket(String ticketNumber, Screening screening, Seat seat, double price) {
+    public TicketBO(String ticketNumber, ScreeningBO screening, SeatBO seat, double price) {
         this.ticketNumber = ticketNumber;
         this.screening = screening;
         this.seat = seat;
@@ -23,7 +23,7 @@ public class Ticket {
         this.orderDate = LocalDateTime.now();
     }
 
-    public Ticket(Screening screening, Seat seat, double price) {
+    public TicketBO(ScreeningBO screening, SeatBO seat, double price) {
         this.seat = seat;
         this.ticketNumber = TicketNumberGenerator.generateNextTicketNo();
         this.screening = screening;
@@ -31,7 +31,7 @@ public class Ticket {
         this.orderDate = LocalDateTime.now();
     }
 
-    public Ticket(String ticketNumber, LocalDateTime date, Screening screening, Seat seat, double price) {
+    public TicketBO(String ticketNumber, LocalDateTime date, ScreeningBO screening, SeatBO seat, double price) {
         this.ticketNumber = ticketNumber;
         this.screening = screening;
         this.seat = seat;
@@ -39,7 +39,7 @@ public class Ticket {
         this.orderDate = LocalDateTime.now();
     }
 
-    public Ticket(Screening screening, Seat seat, PriceList priceFromList) {
+    public TicketBO(ScreeningBO screening, SeatBO seat, PriceList priceFromList) {
         this.seat = seat;
         this.ticketNumber = TicketNumberGenerator.generateNextTicketNo();
         this.screening = screening;
@@ -47,7 +47,7 @@ public class Ticket {
         this.orderDate = LocalDateTime.now();
     }
 
-    public Ticket(Screening screening, Seat seat) {
+    public TicketBO(ScreeningBO screening, SeatBO seat) {
         this.seat = seat;
         this.ticketNumber = TicketNumberGenerator.generateNextTicketNo();
         this.screening = screening;
@@ -55,18 +55,18 @@ public class Ticket {
         this.orderDate = LocalDateTime.now();
     }
 
-    public Ticket() {
+    public TicketBO() {
     }
 
     public String getTicketNumber() {
         return ticketNumber;
     }
 
-    public Screening getScreening() {
+    public ScreeningBO getScreening() {
         return screening;
     }
 
-    public Seat getSeat() {
+    public SeatBO getSeat() {
         return seat;
     }
 
@@ -80,7 +80,7 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return String.format("Ticket(verification number=%s, '%s', %2.2f, for " +
+        return String.format("TicketBO(verification number=%s, '%s', %2.2f, for " +
                         "screening=%s, with booked place:%s)",
                 ticketNumber, orderDate.toString(dtFormatter),
                 price, screening, seat.getSeatNumber());

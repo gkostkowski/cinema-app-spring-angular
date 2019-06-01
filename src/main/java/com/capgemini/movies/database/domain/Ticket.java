@@ -95,7 +95,7 @@ public class Ticket extends Entity {
 
     @Override
     public String toString() {
-        return String.format("Ticket(%d, number=%s, '%s', %f, for screening=%s, with booked" +
+        return String.format("TicketBO(%d, number=%s, '%s', %f, for screening=%s, with booked" +
                         " place:%s)",
                 entityId, ticketNumber, orderDate.toString(CustomDateConverter.dtFormatter),
                 price, screening, bookedPlace.seatNumber);

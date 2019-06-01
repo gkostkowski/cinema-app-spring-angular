@@ -6,17 +6,17 @@ import org.joda.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Screening {
+public class ScreeningBO {
     private Long id;
     private LocalDateTime screeningDate;
-    private Movie movie;
-    private ScreeningRoom screeningRoom;
-    private Collection<Ticket> orderedTickets;
+    private MovieBO movie;
+    private ScreeningRoomBO screeningRoom;
+    private Collection<TicketBO> orderedTickets;
 
-    public Screening() {
+    public ScreeningBO() {
     }
 
-    public Screening(Long id, LocalDateTime screeningDate, Movie movie, ScreeningRoom screeningRoom) {
+    public ScreeningBO(Long id, LocalDateTime screeningDate, MovieBO movie, ScreeningRoomBO screeningRoom) {
         this.id = id;
         this.screeningDate = screeningDate;
         this.movie = movie;
@@ -32,15 +32,15 @@ public class Screening {
         return screeningDate;
     }
 
-    public Movie getMovie() {
+    public MovieBO getMovie() {
         return movie;
     }
 
-    public ScreeningRoom getScreeningRoom() {
+    public ScreeningRoomBO getScreeningRoom() {
         return screeningRoom;
     }
 
-    public Collection<Ticket> getOrderedTickets() {
+    public Collection<TicketBO> getOrderedTickets() {
         return orderedTickets;
     }
 

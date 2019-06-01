@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/services/rest")
 public class CinemaRest {
 
-//    private final Map<Long, Movie> movies;
+//    private final Map<Long, MovieTest> movies;
 
     private final Object seqLock = new Object();
     private final CinemaService service;
@@ -38,7 +38,7 @@ public class CinemaRest {
     public CinemaRest(CinemaService service) {
         this.service = service;
 //        sequencer = service.getMoviesMap().values().stream()
-//                .max(Comparator.comparingLong(Movie::getEntityId))
+//                .max(Comparator.comparingLong(MovieTest::getEntityId))
 //                .get().getEntityId() + 1L;
         sequencer = 1L;
     }
@@ -53,9 +53,10 @@ public class CinemaRest {
     @RequestMapping(value = "/movie/{id}/screenings", method = RequestMethod.GET)
     public List<Screening> getScreeningsForMovie(@PathVariable("id") long id) {
         Movie movie = service.getMoviesMap().get(id);
-        return service.getScreeningsForMovieMap(movie).values().stream()
+        List<Screening> res = service.getScreeningsForMovieTitleMap(movie.getTitle()).values().stream()
                 .sorted(Comparator.comparingLong(Screening::getEntityId))
                 .collect(Collectors.toList());
+        return res;
     }
 
     @RequestMapping(value = "/movies/{id}", method = RequestMethod.GET)
@@ -91,13 +92,10 @@ public class CinemaRest {
             produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> getMovieImage(@PathVariable("id") long id) throws IOException {
 
-        ClassPathResource imgFile = new ClassPathResource(
-                String.format("image/movies/%d.jpg", id));
-        byte[] bytes = StreamUtils.copyToByteArray(imgFile.getInputStream());
-
+        byte[] imgBytes = service.getImageByMovieId(id);
         return ResponseEntity
                 .ok()
                 .contentType(MediaType.IMAGE_JPEG)
-                .body(bytes);
+                .body(imgBytes);
     }
 }

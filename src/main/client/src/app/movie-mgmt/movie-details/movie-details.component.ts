@@ -8,7 +8,7 @@ import {Movie, MovieService} from "../movie.service";
   styleUrls: ['./movie-details.component.scss']
 })
 export class MovieDetailsComponent implements OnInit {
-  private currentMovie: Movie;
+  currentMovie: Movie;
 
   constructor(private movieService: MovieService, private route: ActivatedRoute, private router: Router) {
     this.currentMovie = new Movie();
@@ -35,12 +35,12 @@ export class MovieDetailsComponent implements OnInit {
         // ).subscribe(
         //   movie => {
         //
-        //       this.movieService.getMovieImage(this.currentMovie.id).subscribe(
+        //       this.movieService.getMovieImage(this.currentMovie.entityId).subscribe(
         //         // image => {console.log(image);this.currentMovies[movieId].image = image; }
         //         image => {
         //           this.movieService.setImageForMovie(this.currentMovie, image);
         //           console.log("From nested sub");
-        //           console.log(this.currentMovie.id);
+        //           console.log(this.currentMovie.entityId);
         //         }
         //       );
         //

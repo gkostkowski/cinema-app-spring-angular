@@ -1,9 +1,8 @@
 package com.capgemini.movies.adapter;
 
-import com.capgemini.movies.domain.Movie;
-import com.capgemini.movies.domain.Screening;
+import com.capgemini.movies.domain.ScreeningBO;
 
-public class ScreeningAdapter implements EntityAdapter<Screening, com.capgemini.movies.database.domain.Screening> {
+public class ScreeningAdapter implements EntityAdapter<ScreeningBO, com.capgemini.movies.database.domain.Screening> {
 
     private static final ScreeningAdapter instance = new ScreeningAdapter();
 
@@ -11,8 +10,8 @@ public class ScreeningAdapter implements EntityAdapter<Screening, com.capgemini.
     }
 
     @Override
-    public Screening asDomainObject(com.capgemini.movies.database.domain.Screening dbEntity) {
-        return new Screening(
+    public ScreeningBO asDomainObject(com.capgemini.movies.database.domain.Screening dbEntity) {
+        return new ScreeningBO(
                 dbEntity.getEntityId(),
                 dbEntity.getScreeningDate(),
                 MovieAdapter.getInstance()
@@ -23,11 +22,11 @@ public class ScreeningAdapter implements EntityAdapter<Screening, com.capgemini.
     }
 
     @Override
-    public com.capgemini.movies.database.domain.Screening asDbObject(Screening domainObj) {
+    public com.capgemini.movies.database.domain.Screening asDbObject(ScreeningBO domainObj) {
         return null;
     }
 
-    public static EntityAdapter<Screening, com.capgemini.movies.database.domain.Screening> getInstance() {
+    public static EntityAdapter<ScreeningBO, com.capgemini.movies.database.domain.Screening> getInstance() {
         return instance;
     }
 }

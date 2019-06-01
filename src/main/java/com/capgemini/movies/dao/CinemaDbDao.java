@@ -9,6 +9,7 @@ import org.neo4j.ogm.cypher.ComparisonOperator;
 import org.neo4j.ogm.cypher.Filter;
 import org.neo4j.ogm.session.Session;
 import org.springframework.stereotype.Component;
+import com.capgemini.movies.database.domain.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,11 @@ public class CinemaDbDao implements CinemaDao {
     }
 
     @Override
+    public Movie getMovieByTitle(String title) {
+        return null;
+    }
+
+    @Override
     public List<Screening> getScreenings() {
         return new ArrayList<>(dbConn.loadAll(Screening.class));
     }
@@ -52,6 +58,11 @@ public class CinemaDbDao implements CinemaDao {
         return getScreenings().stream()
                 .filter(s -> s.getMovie().equals(movie))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Screening> getScreeningsForMovieTitle(String title) {
+        return null;
     }
 
     @Override

@@ -25,48 +25,48 @@ public class CinemaDbDaoOld /*implements CinemaDao*/ {
 //    }
 //
 //    @Override
-//    public List<Movie> getMovies() {
-//        return new ArrayList<>(dbConn.loadAll(Movie.class));
+//    public List<MovieTest> getMovies() {
+//        return new ArrayList<>(dbConn.loadAll(MovieTest.class));
 //    }
 //
 //    @Override
-//    public List<Screening> getScreenings() {
-//        return new ArrayList<>(dbConn.loadAll(Screening.class));
+//    public List<ScreeningBO> getScreenings() {
+//        return new ArrayList<>(dbConn.loadAll(ScreeningBO.class));
 //    }
 //
 //    @Override
-//    public Screening getScreeningById(Long id) {
-//        Filter filter = getEntityIdFilter(id);
-//        Optional<Screening> result = dbConn.loadAll(Screening.class, filter)
+//    public ScreeningBO getScreeningById(Long entityId) {
+//        Filter filter = getEntityIdFilter(entityId);
+//        Optional<ScreeningBO> result = dbConn.loadAll(ScreeningBO.class, filter)
 //                .stream()
 //                .findFirst();
 //        return result.orElse(null);
 //    }
 //
 //    @Override
-//    public List<Screening> getScreeningsForMovie(Movie movie) {
+//    public List<ScreeningBO> getScreeningsForMovie(MovieTest movie) {
 //        return getScreenings().stream()
 //                .filter(s -> s.getMovie().equals(movie))
 //                .collect(Collectors.toList());
 //    }
 //
 //    @Override
-//    public List<ScreeningRoom> getScreeningRooms() {
-//        return new ArrayList<>(dbConn.loadAll(ScreeningRoom.class));
+//    public List<ScreeningRoomBO> getScreeningRooms() {
+//        return new ArrayList<>(dbConn.loadAll(ScreeningRoomBO.class));
 //    }
 //
 //    @Override
-//    public Ticket getTicketById(long id) {
-//        Filter filter = getEntityIdFilter(id);
-//        Optional<Ticket> result = dbConn.loadAll(Ticket.class, filter)
+//    public TicketBO getTicketById(long entityId) {
+//        Filter filter = getEntityIdFilter(entityId);
+//        Optional<TicketBO> result = dbConn.loadAll(TicketBO.class, filter)
 //                .stream()
 //                .findFirst();
 //        return result.orElse(null);
 //    }
 //
 //    @Override
-//    public List<Ticket> getAllTickets() {
-//        return new ArrayList<>(dbConn.loadAll(Ticket.class));
+//    public List<TicketBO> getAllTickets() {
+//        return new ArrayList<>(dbConn.loadAll(TicketBO.class));
 //    }
 //
 //    public List<Genre> getGenres() {
@@ -74,23 +74,23 @@ public class CinemaDbDaoOld /*implements CinemaDao*/ {
 //    }
 //
 //    @Override
-//    public List<Seat> getSeats() {
-//        return new ArrayList<>(dbConn.loadAll(Seat.class));
+//    public List<SeatBO> getSeats() {
+//        return new ArrayList<>(dbConn.loadAll(SeatBO.class));
 //    }
 //
 //    @Override
-//    public List<Seat> getAvailablePlacesForScreening(Screening screening) {
+//    public List<SeatBO> getAvailablePlacesForScreening(ScreeningBO screening) {
 //        // TODO check if objects are automatically synchronized with db
 //        // or if they must be fetched again
-//        List<Seat> allSeats = screening.getScreeningRoom().getSeats();
-//        List<Seat> bookedSeats = screening.getReservedPlaces();
+//        List<SeatBO> allSeats = screening.getScreeningRoom().getSeats();
+//        List<SeatBO> bookedSeats = screening.getReservedPlaces();
 //        return allSeats.stream()
 //                .filter(s -> !bookedSeats.contains(s))
 //                .collect(Collectors.toList());
 //    }
 //
 //    @Override
-//    public void addTicket(Ticket ticket) {
+//    public void addTicket(TicketBO ticket) {
 //        dbConn.save(ticket);
 //    }
 //

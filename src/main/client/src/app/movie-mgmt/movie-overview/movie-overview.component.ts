@@ -19,21 +19,22 @@ export class MovieOverviewComponent implements OnInit {
         this.currentMovies = movies;
         for (let movieId in this.currentMovies) {
           this.movieService.makeShortDescription(this.currentMovies[movieId])
+          this.movieService.makeGenresStr(this.currentMovies[movieId])
         }
         return movies;
       })
     ).subscribe(
       movies => {
         for (let movieId in this.currentMovies) {
-          this.movieService.getMovieImage(this.currentMovies[movieId].id).subscribe(
+          this.movieService.getMovieImage(this.currentMovies[movieId].entityId).subscribe(
             // image => {console.log(image);this.currentMovies[movieId].image = image; }
             image => {
               this.movieService.setImageForMovie(this.currentMovies[movieId], image);
               console.log("From nested sub");
-              console.log(this.currentMovies[movieId].id);
+              console.log(this.currentMovies[movieId].entityId);
             }
           );
-          this.movieService.findScreenings(this.currentMovies[movieId].id).subscribe(
+          this.movieService.findScreenings(this.currentMovies[movieId].entityId).subscribe(
             screenings => this.movieService.setScreenings(this.currentMovies[movieId], screenings)
           )
         }

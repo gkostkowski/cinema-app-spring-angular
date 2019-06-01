@@ -1,20 +1,20 @@
 package com.capgemini.movies.domain;
 
-public class Seat {
+public class SeatBO {
     private String seatNumber;
 
-    public Seat() {
+    public SeatBO() {
     }
 
-    public Seat(String seatNumber) {
+    public SeatBO(String seatNumber) {
         this.seatNumber = seatNumber;
     }
 
-    public Seat(String row, Integer column) {
+    public SeatBO(String row, Integer column) {
         this.seatNumber = row + column.toString();
     }
 
-    public Seat(Character row, Integer column) {
+    public SeatBO(Character row, Integer column) {
         this(row.toString(), column);
     }
 

@@ -1,12 +1,12 @@
 package com.capgemini.movies.adapter;
 
-import com.capgemini.movies.domain.ScreeningRoom;
-import com.capgemini.movies.domain.Seat;
+import com.capgemini.movies.domain.ScreeningRoomBO;
+import com.capgemini.movies.domain.SeatBO;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ScreeningRoomAdapter implements EntityAdapter<ScreeningRoom, com.capgemini.movies.database.domain.ScreeningRoom> {
+public class ScreeningRoomAdapter implements EntityAdapter<ScreeningRoomBO, com.capgemini.movies.database.domain.ScreeningRoom> {
 
     private static final ScreeningRoomAdapter instance = new ScreeningRoomAdapter();
 
@@ -14,22 +14,22 @@ public class ScreeningRoomAdapter implements EntityAdapter<ScreeningRoom, com.ca
     }
 
     @Override
-    public ScreeningRoom asDomainObject(com.capgemini.movies.database.domain.ScreeningRoom dbEntity) {
-        List<Seat> seats = null;
+    public ScreeningRoomBO asDomainObject(com.capgemini.movies.database.domain.ScreeningRoom dbEntity) {
+        List<SeatBO> seats = null;
         List<com.capgemini.movies.database.domain.Seat> dbSeats = dbEntity.getSeats();
         if (dbSeats != null) {
             seats = dbSeats.stream()
                     .map(s -> SeatAdapter.getInstance().asDomainObject(s))
                     .collect(Collectors.toList());
         }
-        return new ScreeningRoom(
+        return new ScreeningRoomBO(
                 dbEntity.getEntityId(),
                 seats
         );
     }
 
     @Override
-    public com.capgemini.movies.database.domain.ScreeningRoom asDbObject(ScreeningRoom domainObj) {
+    public com.capgemini.movies.database.domain.ScreeningRoom asDbObject(ScreeningRoomBO domainObj) {
         return null;
     }
 

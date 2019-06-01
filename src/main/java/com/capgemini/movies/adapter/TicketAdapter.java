@@ -2,28 +2,30 @@ package com.capgemini.movies.adapter;
 
 import com.capgemini.movies.database.domain.Screening;
 import com.capgemini.movies.database.domain.Seat;
-import com.capgemini.movies.domain.Ticket;
+import com.capgemini.movies.domain.ScreeningBO;
+import com.capgemini.movies.domain.SeatBO;
+import com.capgemini.movies.domain.TicketBO;
 
-public class TicketAdapter implements EntityAdapter<Ticket, com.capgemini.movies.database.domain.Ticket> {
+public class TicketAdapter implements EntityAdapter<TicketBO, com.capgemini.movies.database.domain.Ticket> {
     private static TicketAdapter instance = new TicketAdapter();
 
     private TicketAdapter() {
     }
 
     @Override
-    public Ticket asDomainObject(com.capgemini.movies.database.domain.Ticket dbEntity) {
+    public TicketBO asDomainObject(com.capgemini.movies.database.domain.Ticket dbEntity) {
         Screening dbScreening = dbEntity.getScreening();
-        com.capgemini.movies.domain.Screening screening = null;
+        ScreeningBO screening = null;
         if (dbScreening != null) {
             screening = ScreeningAdapter.getInstance().asDomainObject(dbScreening);
         }
         Seat dbSeat = dbEntity.getBookedPlace();
-        com.capgemini.movies.domain.Seat seat = null;
+        SeatBO seat = null;
         if (dbSeat != null) {
             seat = SeatAdapter.getInstance().asDomainObject(dbSeat);
         }
 
-        return new Ticket(
+        return new TicketBO(
                 dbEntity.getTicketNumber(),
                 dbEntity.getOrderDate(),
                 screening,
@@ -33,13 +35,13 @@ public class TicketAdapter implements EntityAdapter<Ticket, com.capgemini.movies
     }
 
     @Override
-    public com.capgemini.movies.database.domain.Ticket asDbObject(Ticket domainObj) {
-        com.capgemini.movies.domain.Screening screening = domainObj.getScreening();
+    public com.capgemini.movies.database.domain.Ticket asDbObject(TicketBO domainObj) {
+        ScreeningBO screening = domainObj.getScreening();
         Screening dbScreening = null;
         if (screening != null) {
             dbScreening = ScreeningAdapter.getInstance().asDbObject(screening);
         }
-        com.capgemini.movies.domain.Seat seat = domainObj.getSeat();
+        SeatBO seat = domainObj.getSeat();
         Seat dbSeat = null;
         if (seat != null) {
             dbSeat = SeatAdapter.getInstance().asDbObject(seat);

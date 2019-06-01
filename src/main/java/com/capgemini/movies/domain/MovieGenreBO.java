@@ -1,8 +1,6 @@
 package com.capgemini.movies.domain;
 
-import com.capgemini.movies.domain.Movie;
-
-public class MovieGenre {
+public class MovieGenreBO {
 //    COMEDY("comedy"),
 //    DRAMA("drama"),
 //    THRILLER("thriller"),
@@ -13,7 +11,7 @@ public class MovieGenre {
 
     public final String genre;
 
-    public MovieGenre(String genre) {
+    public MovieGenreBO(String genre) {
         this.genre = genre;
     }
 }

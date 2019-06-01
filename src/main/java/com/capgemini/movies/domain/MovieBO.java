@@ -3,16 +3,16 @@ package com.capgemini.movies.domain;
 import java.util.Objects;
 import java.util.Set;
 
-public class Movie {
+public class MovieBO {
     private String description;
     private Long id;
     private String title;
     private String directing;
     private int productionYear;
-    private Set<MovieGenre> genres;
+    private Set<MovieGenreBO> genres;
 
-    public Movie(Long id, String title, String directing, String description, int
-                 productionYear, Set<MovieGenre> genre) {
+    public MovieBO(Long id, String title, String directing, String description, int
+                 productionYear, Set<MovieGenreBO> genre) {
         this.id = id;
         this.title = title;
         this.directing = directing;
@@ -53,7 +53,7 @@ public class Movie {
         this.productionYear = productionYear;
     }
 
-    public Set<MovieGenre> getGenres() {
+    public Set<MovieGenreBO> getGenres() {
         return genres;
     }
 
@@ -70,7 +70,7 @@ public class Movie {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Movie movie = (Movie) o;
+        MovieBO movie = (MovieBO) o;
         return productionYear == movie.productionYear &&
                 Objects.equals(description, movie.description) &&
                 Objects.equals(id, movie.id) &&

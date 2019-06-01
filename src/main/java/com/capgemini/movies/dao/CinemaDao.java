@@ -7,25 +7,29 @@ import java.util.List;
 
 @Component(value = "CinemaDao")
 public interface CinemaDao {
-    List<Movie> getMovies();
+    List<com.capgemini.movies.database.domain.Movie> getMovies();
 
-    List<Screening> getScreenings();
+    Movie getMovieByTitle(String title);
 
-    List<Screening> getScreeningsForMovie(Movie movie);
+    List<com.capgemini.movies.database.domain.Screening> getScreenings();
 
-    List<ScreeningRoom> getScreeningRooms();
+    List<com.capgemini.movies.database.domain.Screening> getScreeningsForMovie(com.capgemini.movies.database.domain.Movie movie);
 
-    Ticket getTicketById(long id);
+    List<Screening> getScreeningsForMovieTitle(String title);
 
-    List<Ticket> getAllTickets();
+    List<com.capgemini.movies.database.domain.ScreeningRoom> getScreeningRooms();
 
-    List<Genre> getGenres();
+    com.capgemini.movies.database.domain.Ticket getTicketById(long id);
 
-    List<Seat> getSeats();
+    List<com.capgemini.movies.database.domain.Ticket> getAllTickets();
 
-    List<Seat> getAvailablePlacesForScreening(Screening screening);
+    List<com.capgemini.movies.database.domain.Genre> getGenres();
 
-    void addTicket(Ticket ticket);
+    List<com.capgemini.movies.database.domain.Seat> getSeats();
 
-    Screening getScreeningById(Long id);
+    List<Seat> getAvailablePlacesForScreening(com.capgemini.movies.database.domain.Screening screening);
+
+    void addTicket(com.capgemini.movies.database.domain.Ticket ticket);
+
+    com.capgemini.movies.database.domain.Screening getScreeningById(Long id);
 }

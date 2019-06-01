@@ -1,11 +1,13 @@
 package com.capgemini.movies.database.domain;
 
 import com.capgemini.movies.database.util.CustomDateConverter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.LocalDateTime;
 import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.typeconversion.Convert;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +21,8 @@ public class Screening extends Entity {
     @JsonProperty("screeningDate")
     LocalDateTime screeningDate;
 
-    @JsonProperty("movie")
+//    @JsonProperty("movie")
+    @JsonIgnore
     @Relationship(type = "SHOWS", direction = Relationship.OUTGOING)
     Movie movie;
 
@@ -32,6 +35,7 @@ public class Screening extends Entity {
     List<Ticket> tickets;
 
     public Screening() {
+        tickets = new LinkedList<>();
     }
 
     public Movie getMovie() {

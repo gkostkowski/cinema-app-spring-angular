@@ -23,7 +23,7 @@ public class ScreeningRoom extends Entity {
 
     @Override
     public String toString() {
-        return String.format("ScreeningRoom(%d, with %d places)",
+        return String.format("ScreeningRoomBO(%d, with %d places)",
                 entityId,
                 places);
     }

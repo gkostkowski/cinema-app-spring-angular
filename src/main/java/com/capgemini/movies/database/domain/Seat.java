@@ -27,7 +27,7 @@ public class Seat extends Entity {
 
     @Override
     public String toString() {
-        return String.format("Seat('%s' from screeningRoom=%s)", seatNumber, screeningRoom);
+        return String.format("SeatBO('%s' from screeningRoom=%s)", seatNumber, screeningRoom);
     }
 
     public static Seat fromNumber(String seatNumber, ScreeningRoom room) {

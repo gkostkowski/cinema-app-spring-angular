@@ -38,6 +38,12 @@ export class MovieService {
     movie.shortDescription = movie.description.substring(0,end) + "..."
   }
 
+  makeGenresStr(movie: Movie) {
+    console.log(movie.genres)
+    movie.genresStr = movie.genres.filter(g => (g.hasOwnProperty("name")))
+        .map( g => (g.name)).join()
+  }
+
   setImageForMovie(movie: Movie, image: Blob) {
     var reader = new FileReader();
     reader.readAsDataURL(image);
@@ -78,9 +84,10 @@ export class MovieService {
 }
 
 export class Movie {
-  id?: number;
+  entityId?: number;
   title: string;
-  genre: MovieGenre;
+  genres: Genre[];
+  genresStr: string;
   directing: string;
   description: string;
   shortDescription: string;
@@ -90,7 +97,7 @@ export class Movie {
 }
 
 export class Screening {
-  id?: number;
+  entityId?: number;
   screeningDate: any;
   movie: any;
   screeningRoom: any;
@@ -98,10 +105,8 @@ export class Screening {
 
 }
 
-enum MovieGenre {
-  COMEDY = "comedy",
-  DRAMA = "drama",
-  THRILLER = "thriller",
-  SCI_FI = "science-fiction",
-  OTHER = "other"
+class Genre {
+  id?: number;
+  name: string;
+  version:any;
 }

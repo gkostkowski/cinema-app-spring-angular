@@ -29,7 +29,7 @@ public class Movie extends Entity {
     @JsonProperty("productionYear")
     Integer productionYear;
 
-    @JsonProperty("genre")
+    @JsonProperty("genres")
     @Relationship(type = "HAS_GENRE", direction = Relationship.OUTGOING)
     Set<Genre> genres;
 
@@ -49,7 +49,7 @@ public class Movie extends Entity {
 
     @Override
     public String toString() {
-        return String.format("Movie(id=%d, '%s', '%s', %d, %s)", entityId, title,
+        return String.format("Movie(entityId=%d, '%s', '%s', %d, %s)", entityId, title,
                 directing,
                 productionYear,
                 genres.stream()
