@@ -1,7 +1,6 @@
 package com.capgemini.movies.database.util;
 
-import com.capgemini.movies.database.domain.Screening;
-import com.capgemini.movies.database.domain.Seat;
+import com.capgemini.movies.domain.Screening;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;

@@ -1,6 +1,6 @@
-package com.capgemini.movies.dao;
+package com.capgemini.movies.database.dao;
 
-import com.capgemini.movies.database.domain.Movie;
+import com.capgemini.movies.domain.Movie;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

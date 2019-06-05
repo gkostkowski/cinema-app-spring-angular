@@ -1,10 +1,10 @@
-package com.capgemini.movies.dao;
+package com.capgemini.movies.database.dao;
 
-import com.capgemini.movies.database.domain.*;
+import com.capgemini.movies.domain.*;
 import org.neo4j.ogm.cypher.ComparisonOperator;
 import org.neo4j.ogm.cypher.Filter;
 import org.neo4j.ogm.session.Session;
-import com.capgemini.movies.database.domain.Movie;
+import com.capgemini.movies.domain.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +68,7 @@ public class CinemaDbDao implements CinemaDao {
 
     public Ticket getTicketById(long id) {
         Filter filter = getEntityIdFilter(id);
-        Optional<com.capgemini.movies.database.domain.Ticket> result =
+        Optional<com.capgemini.movies.domain.Ticket> result =
                 dbConn.loadAll(Ticket.class, filter)
                 .stream()
                 .findFirst();

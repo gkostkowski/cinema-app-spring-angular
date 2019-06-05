@@ -1,16 +1,14 @@
-package com.capgemini.movies.database.domain;
+package com.capgemini.movies.domain;
 
 import com.capgemini.movies.database.util.CustomDateConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.joda.time.LocalDateTime;
 import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.typeconversion.Convert;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 //@JsonSerialize(using = ScreeningSerializer.class)

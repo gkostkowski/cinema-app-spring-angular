@@ -1,6 +1,6 @@
-package com.capgemini.movies.dao;
+package com.capgemini.movies.database.dao;
 
-import com.capgemini.movies.database.domain.*;
+import com.capgemini.movies.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

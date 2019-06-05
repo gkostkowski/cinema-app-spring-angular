@@ -1,4 +1,4 @@
-package com.capgemini.movies.database.domain;
+package com.capgemini.movies.domain;
 
 import com.capgemini.movies.database.util.CustomDateConverter;
 import com.capgemini.movies.database.util.TicketSerializer;

@@ -1,7 +1,7 @@
 package com.capgemini.movies.rest;
 
-import com.capgemini.movies.dao.CinemaDao;
-import com.capgemini.movies.database.domain.*;
+import com.capgemini.movies.database.dao.CinemaDao;
+import com.capgemini.movies.domain.*;
 import com.capgemini.movies.rest.exception.ReservationAfterScreeningException;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Qualifier;

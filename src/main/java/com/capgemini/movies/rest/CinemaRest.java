@@ -1,12 +1,10 @@
 package com.capgemini.movies.rest;
 
-import com.capgemini.movies.database.domain.*;
+import com.capgemini.movies.domain.*;
 import com.capgemini.movies.rest.exception.ReservationAfterScreeningException;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 

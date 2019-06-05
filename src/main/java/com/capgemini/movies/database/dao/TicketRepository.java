@@ -1,10 +1,7 @@
-package com.capgemini.movies.dao;
+package com.capgemini.movies.database.dao;
 
-import com.capgemini.movies.database.domain.Movie;
-import com.capgemini.movies.database.domain.Screening;
-import com.capgemini.movies.database.domain.Seat;
-import com.capgemini.movies.database.domain.Ticket;
-import org.joda.time.LocalDateTime;
+import com.capgemini.movies.domain.Movie;
+import com.capgemini.movies.domain.Ticket;
 import org.springframework.data.neo4j.annotation.Depth;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.repository.CrudRepository;

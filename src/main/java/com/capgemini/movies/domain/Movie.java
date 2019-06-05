@@ -1,7 +1,6 @@
-package com.capgemini.movies.database.domain;
+package com.capgemini.movies.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.HashSet;
