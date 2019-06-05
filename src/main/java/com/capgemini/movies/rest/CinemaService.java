@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.IOException;
 import java.util.List;
@@ -50,8 +51,9 @@ public class CinemaService {
         return dao.getScreeningById(id);
     }
 
-    public Optional<Ticket> makeTicketReservation(Screening screening,
-                                                  Seat chosenPlace)
+    public Ticket makeTicketReservation(Screening screening,
+                                        Seat chosenPlace,
+                                        double price)
             throws ReservationAfterScreeningException {
         LocalDateTime currentDate = LocalDateTime.now();
         currentDate.isAfter(currentDate);
@@ -61,11 +63,11 @@ public class CinemaService {
         List<Seat> availablePlaces = dao.getAvailablePlacesForScreening(screening);
         if (availablePlaces.contains(chosenPlace)) {
             Ticket newTicket =
-                    new Ticket(screening, chosenPlace); //with standard price
+                    new Ticket(screening, chosenPlace, price); //with standard price
             dao.addTicket(newTicket);
-            return Optional.of(newTicket);
+            return newTicket;
         }
-        return Optional.empty();
+        return null;
     }
 
     public Optional<Ticket> makeTicketReservation(Screening screening)
@@ -114,14 +116,31 @@ public class CinemaService {
     public Map<Long, Screening> getScreenings() {
         List<Screening> screenings = dao.getScreenings();
         return new ConcurrentHashMap<Long, Screening>(screenings.stream()
-                .collect(Collectors.toMap(Screening::getId, Function.identity())));
+                .collect(Collectors.toMap(Screening::getEntityId, Function.identity())));
     }
 
     public void addTicket(Ticket ticket) {
-        orderedTickets.add(ticket);
+//        orderedTickets.add(ticket);
+        throw new NotImplementedException();
     }
 
-    public Optional<Ticket> findTicket(String ticketId) {
-        return orderedTickets.stream().filter(ticket -> ticket.getTicketNumber().equals(ticketId)).findFirst();
+    public Ticket findTicket(String ticketId) {
+        return dao.getTicketById(ticketId);
+    }
+
+    public Seat getFirstFreePlaceForScreening(Screening screening) {
+        List<Seat> seats = dao.getAvailablePlacesForScreening(screening);
+        if (!seats.isEmpty()) {
+            return seats.get(0);
+        }
+        return null;
+    }
+
+    public ScreeningRoom getScreeningRoomByScreeningId(long screeningId) {
+        return dao.getScreeningRoomByScreeningId(screeningId);
+    }
+
+    public Movie getMoviesByScreening(Long entityId) {
+        return dao.getMoviesByScreening(entityId);
     }
 }

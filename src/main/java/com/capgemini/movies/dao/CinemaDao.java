@@ -19,7 +19,7 @@ public interface CinemaDao {
 
     List<com.capgemini.movies.database.domain.ScreeningRoom> getScreeningRooms();
 
-    com.capgemini.movies.database.domain.Ticket getTicketById(long id);
+    com.capgemini.movies.database.domain.Ticket getTicketById(String id);
 
     List<com.capgemini.movies.database.domain.Ticket> getAllTickets();
 
@@ -32,4 +32,8 @@ public interface CinemaDao {
     void addTicket(com.capgemini.movies.database.domain.Ticket ticket);
 
     com.capgemini.movies.database.domain.Screening getScreeningById(Long id);
+
+    ScreeningRoom getScreeningRoomByScreeningId(long screeningId);
+
+    Movie getMoviesByScreening(Long entityId);
 }

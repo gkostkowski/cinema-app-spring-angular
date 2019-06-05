@@ -46,20 +46,4 @@ public class ScreeningRoomBO {
         return seats;
     }
 
-    public List<Seat> getFreeSeats() {
-        return seats.stream().filter(Seat::isFree).collect(Collectors.toList());
-    }
-
-    public static char getFirstRow() {
-        return firstRow;
-    }
-
-    public Optional<Seat> getFirstFreeSeat() {
-        return seats.stream().filter(Seat::isFree).findFirst();
-    }
-
-    public void setSeatAsTaken(Seat seat) {
-        int index = seats.indexOf(seat);
-        seats.get(index).reservePlace();
-    }
 }

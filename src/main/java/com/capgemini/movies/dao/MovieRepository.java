@@ -3,12 +3,16 @@ package com.capgemini.movies.dao;
 import com.capgemini.movies.database.domain.Movie;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface MovieRepository extends CrudRepository<Movie, Long> {
 
     Movie findByTitle(String name);
+
+    @Query("match (m:Movie)<-[r:SHOWS]-(s:Screening {entityId:{0}}) return m")
+    Movie findByScreeningId(@Param("scr") long screeningId);
 
     List<Movie> findAll();
 

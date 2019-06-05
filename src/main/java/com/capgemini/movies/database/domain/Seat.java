@@ -5,6 +5,7 @@ import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.Objects;
 
+
 public class Seat extends Entity {
     @JsonProperty("seatNumber")
     String seatNumber;
@@ -27,7 +28,7 @@ public class Seat extends Entity {
 
     @Override
     public String toString() {
-        return String.format("SeatBO('%s' from screeningRoom=%s)", seatNumber, screeningRoom);
+        return String.format("Seat('%s' from screeningRoom=%s)", seatNumber, screeningRoom);
     }
 
     public static Seat fromNumber(String seatNumber, ScreeningRoom room) {
@@ -46,5 +47,9 @@ public class Seat extends Entity {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), seatNumber, screeningRoom.entityId);
+    }
+
+    public ScreeningRoom getScreeningRoom() {
+        return screeningRoom;
     }
 }

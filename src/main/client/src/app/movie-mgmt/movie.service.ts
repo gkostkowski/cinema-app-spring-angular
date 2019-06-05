@@ -27,6 +27,10 @@ export class MovieService {
     return this.httpClient.get<Screening>(`services/rest/screenings/${screeningId}`);
   }
 
+  findScreeningRoomForScreening(scrRoomId: number): Observable<ScreeningRoom>  {
+    return this.httpClient.get<ScreeningRoom>(`services/rest/screening/room/${scrRoomId}`);
+  }
+
   getMovieImage(movieId: number):Observable<Blob> {
     return this.httpClient.get(`services/rest/movies/img/${movieId}`,
       {
@@ -83,18 +87,19 @@ export class MovieService {
 
   convertDate(screening: Screening) {
     let date = screening.screeningDate
-      let mm = this.pad(date.monthOfYear, 2)
-      let dd = this.pad(date.dayOfMonth,2)
-      let hh = this.pad(date.hourOfDay, 2)
-      let MM = this.pad(date.minuteOfHour, 2)
-      let t: string = "";
-      if (hh != "00") {
-        t = ` ${hh}:${MM}`
-      }
-      screening.screeningDate =
-        `${date.year}-${mm}-${dd}${t}`
+    let mm = this.pad(date.monthOfYear, 2)
+    let dd = this.pad(date.dayOfMonth, 2)
+    let hh = this.pad(date.hourOfDay, 2)
+    let MM = this.pad(date.minuteOfHour, 2)
+    let t: string = "";
+    if (hh != "00") {
+      t = ` ${hh}:${MM}`
+    }
+    screening.screeningDate =
+      `${date.year}-${mm}-${dd}${t}`
 
-
+    return screening
+  }
 }
 
 export class Movie {
@@ -115,23 +120,23 @@ export class Screening {
   screeningDate: any;
   movie: Movie;
   screeningRoom: ScreeningRoom;
-  orderedTickets: any;
+  tickets: Ticket[];
 }
 
 export class Seat {
   seatNumber: String;
-  free: boolean;
 }
 
 export class ScreeningRoom {
-  id?: number;
+  entityId?: number;
   seats: Seat[];
+  places: number;
 }
 
 export class Ticket {
   ticketNumber: String;
   screening: Screening;
-  seat: Seat;
+  bookedPlace: Seat;
   price: number;
 }
 

@@ -48,11 +48,4 @@ public class ScreeningBO {
         return orderedTickets;
     }
 
-    public Optional<Seat> getFirstFreePlace() {
-        return screeningRoom.getFirstFreeSeat();
-    }
-
-    public void setSeatAsTaken(Seat seat) {
-        screeningRoom.setSeatAsTaken(seat);
-    }
 }

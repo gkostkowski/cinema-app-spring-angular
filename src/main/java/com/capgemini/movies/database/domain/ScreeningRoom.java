@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public class ScreeningRoom extends Entity {
@@ -21,13 +22,6 @@ public class ScreeningRoom extends Entity {
     public ScreeningRoom() {
     }
 
-    @Override
-    public String toString() {
-        return String.format("ScreeningRoomBO(%d, with %d places)",
-                entityId,
-                places);
-    }
-
     public List<Seat> getSeats() {
         return seats;
     }
@@ -38,5 +32,12 @@ public class ScreeningRoom extends Entity {
 
     public int getPlaces() {
         return places;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ScreeningRoom(%d, with %d places)",
+                entityId,
+                places);
     }
 }

@@ -8,23 +8,27 @@
                 <input type="text" class="form-control" id="ticket-number" required
                 [(ngModel)]="ticketNumber" [ngModelOptions]="{standalone: true}">
             </div>
-        
+
             <button type="submit" class="btn btn-success">Submit</button>
-        
+
             </form>
     </div>
 
     &nbsp;
 
-    <div *ngIf="currentTicket">
+    <div *ngIf="valid">
         <div class="container">
-            <div class="row">
-                <div class="col-md-4">Ticket</div>
-                <div class="col-md-8">Valid</div>
-            </div>
+          <div class="row">
+              <div class="col-md-4">Ticket</div>
+              <div class="col-md-8">{{currentTicket.ticketNumber}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">Status</div>
+            <div class="col-md-8">Valid</div>
+          </div>
             <div class="row">
                 <div class="col-md-4">Movie</div>
-                <div class="col-md-8">{{currentTicket.screening.movie.title}}</div>
+                <div class="col-md-8">{{currentTicket.screening.movie}}</div>
             </div>
             <div class="row">
                 <div class="col-md-4">Date</div>
@@ -32,16 +36,26 @@
             </div>
             <div class="row">
                 <div class="col-md-4">ScreeningRoom</div>
-                <div class="col-md-8">{{currentTicket.screening.screeningRoom.id}}</div>
+                <div class="col-md-8">{{currentTicket.screening.screeningRoom.entityId}}</div>
             </div>
             <div class="row">
                 <div class="col-md-4">Seat</div>
-                <div class="col-md-8">{{currentTicket.seat.seatNumber}}</div>
+                <div class="col-md-8">{{currentTicket.bookedPlace.seatNumber}}</div>
             </div>
             <div class="row">
                 <div class="col-md-4">Price</div>
-                <div class="col-md-8">{{currentTicket.price}}</div>
+                <div class="col-md-8">{{currentTicket.price}} zł</div>
             </div>
         </div>
+    </div>
+    <div class="container" *ngIf="invalidNumber != null && invalidNumber == ticketNumber">
+      <div class="row">
+        <div class="col-md-4">Ticket</div>
+        <div class="col-md-8">{{invalidNumber}}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">Status</div>
+        <div class="col-md-8">Invalid</div>
+      </div>
     </div>
 </section>

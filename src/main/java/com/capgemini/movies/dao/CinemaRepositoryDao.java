@@ -12,11 +12,17 @@ public class CinemaRepositoryDao implements CinemaDao {
 
     private final MovieRepository movieRepository;
     private final ScreeningRepository screeningRepository;
+    private final ScreeningRoomRepository scrRoomRepository;
+    private final TicketRepository ticketRepository;
 
     public CinemaRepositoryDao(@Autowired MovieRepository movieRepository,
-                               @Autowired ScreeningRepository screeningRepository) {
+                               @Autowired ScreeningRepository screeningRepository,
+                               @Autowired ScreeningRoomRepository scrRoomRepository,
+                               @Autowired TicketRepository ticketRepository) {
         this.movieRepository = movieRepository;
         this.screeningRepository = screeningRepository;
+        this.scrRoomRepository = scrRoomRepository;
+        this.ticketRepository = ticketRepository;
     }
 
     @Override
@@ -26,7 +32,8 @@ public class CinemaRepositoryDao implements CinemaDao {
 
     @Override
     public List<Screening> getScreenings() {
-        return screeningRepository.findAll();
+//        return screeningRepository.findAll();
+        return screeningRepository.findAllFull();
     }
 
     @Override
@@ -50,8 +57,8 @@ public class CinemaRepositoryDao implements CinemaDao {
     }
 
     @Override
-    public Ticket getTicketById(long id) {
-        return null;
+    public Ticket getTicketById(String id) {
+        return ticketRepository.findByTicketNumber(id);
     }
 
     @Override
@@ -71,16 +78,28 @@ public class CinemaRepositoryDao implements CinemaDao {
 
     @Override
     public List<Seat> getAvailablePlacesForScreening(Screening screening) {
-        return null;
+        return screeningRepository.findFreePlacesForScreening(screening.getEntityId());
     }
 
     @Override
     public void addTicket(Ticket ticket) {
-
+        ticketRepository.addTicket(ticket.getTicketNumber(), ticket.getScreening().getEntityId(),
+                ticket.getBookedPlace().getSeatNumber(),
+                ticket.getTextualOrderDate(), ticket.getPrice());
     }
 
     @Override
     public Screening getScreeningById(Long id) {
-        return null;
+        return screeningRepository.findByIdFull(id);
+    }
+
+    @Override
+    public ScreeningRoom getScreeningRoomByScreeningId(long screeningId) {
+        return this.scrRoomRepository.findByScreeningRoomId(screeningId);
+    }
+
+    @Override
+    public Movie getMoviesByScreening(Long entityId) {
+        return movieRepository.findByScreeningId(entityId);
     }
 }

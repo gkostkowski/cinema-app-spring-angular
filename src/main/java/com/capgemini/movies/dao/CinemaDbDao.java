@@ -1,14 +1,9 @@
 package com.capgemini.movies.dao;
 
-import com.capgemini.movies.adapter.MovieAdapter;
-import com.capgemini.movies.adapter.ScreeningAdapter;
-import com.capgemini.movies.adapter.ScreeningRoomAdapter;
-import com.capgemini.movies.adapter.TicketAdapter;
 import com.capgemini.movies.database.domain.*;
 import org.neo4j.ogm.cypher.ComparisonOperator;
 import org.neo4j.ogm.cypher.Filter;
 import org.neo4j.ogm.session.Session;
-import org.springframework.stereotype.Component;
 import com.capgemini.movies.database.domain.Movie;
 
 import java.util.ArrayList;
@@ -71,7 +66,6 @@ public class CinemaDbDao implements CinemaDao {
 
     }
 
-    @Override
     public Ticket getTicketById(long id) {
         Filter filter = getEntityIdFilter(id);
         Optional<com.capgemini.movies.database.domain.Ticket> result =
@@ -79,6 +73,11 @@ public class CinemaDbDao implements CinemaDao {
                 .stream()
                 .findFirst();
         return result.orElse(null);
+    }
+
+    @Override
+    public Ticket getTicketById(String id) {
+        return null;
     }
 
     @Override
@@ -115,5 +114,15 @@ public class CinemaDbDao implements CinemaDao {
         return new Filter("entityId",
                 ComparisonOperator.EQUALS,
                 entityId);
+    }
+
+    @Override
+    public ScreeningRoom getScreeningRoomByScreeningId(long screeningId) {
+        return null;
+    }
+
+    @Override
+    public Movie getMoviesByScreening(Long entityId) {
+        return null;
     }
 }

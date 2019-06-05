@@ -1,6 +1,7 @@
 package com.capgemini.movies.rest;
 
 import com.capgemini.movies.database.domain.*;
+import com.capgemini.movies.rest.exception.ReservationAfterScreeningException;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -61,8 +63,19 @@ public class CinemaRest {
 
     @RequestMapping(value = "/screenings/{screeningId}", method = RequestMethod.GET)
     public ResponseEntity<Screening> getScreening(@PathVariable("screeningId") long screeningId) {
-        final Map<Long, Screening> screeningsMap = service.getScreenings();
-        final Screening screening = screeningsMap.get(screeningId);
+        final Screening screening = service.getScreeningById(screeningId);
+        if (screening != null) {
+            Movie movie = service.getMoviesByScreening(screening.getEntityId());
+            screening.setMovie(movie);
+            return ResponseEntity.ok(screening);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @RequestMapping(value = "/screening/room/{screeningId}", method = RequestMethod.GET)
+    public ResponseEntity<ScreeningRoom> getScreeningRoomByScreeningId(@PathVariable("screeningId") long screeningId) {
+        final ScreeningRoom screening = service.getScreeningRoomByScreeningId(screeningId);
         if (screening != null) {
             return ResponseEntity.ok(screening);
         } else {
@@ -73,14 +86,16 @@ public class CinemaRest {
     @RequestMapping(value = "/screenings/ticket/{screeningId}", method = RequestMethod.POST)
     public ResponseEntity<Ticket> saveTicket(@PathVariable("screeningId") long screeningId,
                                              @RequestBody double price) {
-        Map<Long, Screening> screeningsMap = service.getScreenings();
-        Screening screening = screeningsMap.get(screeningId);
+        Screening screening = service.getScreeningById(screeningId);
         if (screening != null) {
-            Optional<Seat> seat = screening.getFirstFreePlace();
-            if (seat.isPresent()) {
-                Ticket ticket = new Ticket(screening, seat.get(), price);
-                screening.setSeatAsTaken(seat.get());
-                service.addTicket(ticket);
+            Seat seat = service.getFirstFreePlaceForScreening(screening);
+            if (seat != null) {
+                Ticket ticket = null;
+                try {
+                    ticket = service.makeTicketReservation(screening, seat, price);
+                } catch (ReservationAfterScreeningException e) {
+                    ResponseEntity.status(400);
+                }
                 return ResponseEntity.ok(ticket);
             }
         }
@@ -89,9 +104,9 @@ public class CinemaRest {
 
     @RequestMapping(value = "/ticket/{ticketId}", method = RequestMethod.GET)
     public ResponseEntity<Ticket> validateTicket(@PathVariable("ticketId") String ticketId) {
-        Optional<Ticket> ticket = service.findTicket(ticketId);
-        if (ticket.isPresent()) {
-            return ResponseEntity.ok(ticket.get());
+        Ticket ticket = service.findTicket(ticketId);
+        if (ticket != null) {
+            return ResponseEntity.ok(ticket);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }

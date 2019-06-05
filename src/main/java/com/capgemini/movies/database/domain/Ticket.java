@@ -1,13 +1,16 @@
 package com.capgemini.movies.database.domain;
 
 import com.capgemini.movies.database.util.CustomDateConverter;
+import com.capgemini.movies.database.util.TicketSerializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.joda.time.LocalDateTime;
 import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.typeconversion.Convert;
 
 import java.util.Random;
 
+@JsonSerialize(using = TicketSerializer.class)
 public class Ticket extends Entity {
 
     @JsonProperty("entityId")
@@ -93,12 +96,18 @@ public class Ticket extends Entity {
         return orderDate;
     }
 
+    public String getTextualOrderDate() {
+        return orderDate.toString(CustomDateConverter.dtFormatter);
+    }
+
     @Override
     public String toString() {
-        return String.format("TicketBO(%d, number=%s, '%s', %f, for screening=%s, with booked" +
+        return String.format("Ticket(%d, number=%s, '%s', %f, for screening=%s, with booked" +
                         " place:%s)",
-                entityId, ticketNumber, orderDate.toString(CustomDateConverter.dtFormatter),
-                price, screening, bookedPlace.seatNumber);
+                entityId, ticketNumber,
+                orderDate != null ? orderDate.toString(CustomDateConverter.dtFormatter) : null,
+                price, screening,
+                bookedPlace != null ? bookedPlace.seatNumber : 0);
     }
 }
 

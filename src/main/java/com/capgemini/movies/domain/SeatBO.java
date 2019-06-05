@@ -2,7 +2,6 @@ package com.capgemini.movies.domain;
 
 public class SeatBO {
     private String seatNumber;
-    private Boolean isFree = true;
 
     public SeatBO() {
     }
@@ -23,11 +22,4 @@ public class SeatBO {
         return seatNumber;
     }
 
-    public Boolean isFree() {
-        return this.isFree;
-    }
-
-    public void reservePlace() {
-        this.isFree = false;
-    }
 }
